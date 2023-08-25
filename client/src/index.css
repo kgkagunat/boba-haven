@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +15,96 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.transition-image {
+  position: absolute;
+  bottom: 320px;
+  left: 50%;
+  transform: translateX(-50%); /* This will ensure it's centered regardless of its width */  
+  z-index: 1;
+  width: 100%;
+  height: 20%;
+}
+
+.CardDrink {
+  position: relative;
+  z-index: 2;
+}
+
+/* Slide In Animations */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: slideInFromLeft 1s forwards;
+}
+
+.slide-in-left-2 {
+  animation: slideInFromLeft 2s forwards;
+}
+
+.slide-in-right {
+  animation: slideInFromRight 1s forwards;
+}
+
+.slide-in-right-2 {
+  animation: slideInFromRight 2s forwards;
+}
+
+.slide-in-top {
+  animation: slideInFromTop 1s forwards;
+}
+
+.slide-in-top-2 {
+  animation: slideInFromTop 2s forwards;
+}
+
+.slide-in-bottom {
+  animation: slideInFromBottom 1s forwards;
+}
+
+.slide-in-bottom-2 {
+  animation: slideInFromBottom 2s forwards;
+}
+/* Slide In Animations (end here) */
