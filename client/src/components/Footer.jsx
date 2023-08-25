@@ -82,7 +82,15 @@ function Footer() {
             ))}
             </div>
             <p className="font-gamja mt-10 text-center text-xl leading-5 text-pink-400">
-            &copy; 2023 Boba Bliss, Inc. All rights reserved.
+            &copy; 2023 Boba Haven, Inc. All rights reserved.
+            </p>
+            <p className="font-gamja mt-5 text-center text-xl leading-5 text-pink-400 hover:scale-110">
+            <a href="mailto:info.bubblehaven@gmail.com">
+                info.bubblehaven@gmail.com
+            </a>
+            </p>
+            <p className="font-gamja mt-4 text-center text-xl leading-5 text-pink-400">
+            123 Bubble Lane Sipville, TeaTown 98765 BobaLand
             </p>
         </div>
         </footer>
