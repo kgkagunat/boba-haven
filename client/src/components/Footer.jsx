@@ -1,12 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 // `const navigation` don't know if this should be placed in the backend(or server)
 // Might be okay on the frontend for now. We have to discuss this.
 const navigation = {
     main: [
-      { name: 'About', href: '#' },
-      { name: 'Blog', href: '#' },
-      { name: 'Partners', href: '#' },
+      { name: 'About', href: '/about' },
+      { name: 'Blog', href: '/blog' },
     ],
     social: [
       {
@@ -62,38 +62,40 @@ const navigation = {
   
 function Footer() {
     return (
-        <footer className="bg-white">
-        <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
-            <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
-            {navigation.main.map((item) => (
-                <div key={item.name} className="pb-6 hover:animate-subtleBounce">
-                <a href={item.href} className="font-twinkle text-xl leading-6 text-gray-600 hover:text-pink-400 file:">
-                    {item.name}
-                </a>
-                </div>
-            ))}
-            </nav>
-            <div className="mt-10 flex justify-center space-x-10">
-            {navigation.social.map((item) => (
-                <a key={item.name} href={item.href} className="text-gray-600 hover:text-pink-400 transform transition-transform duration-300 hover:scale-150">
-                <span className="sr-only">{item.name}</span>
-                <item.icon className="h-6 w-6" aria-hidden="true" />
-                </a>
-            ))}
-            </div>
-            <p className="font-gamja mt-10 text-center text-xl leading-5 text-pink-400">
-            &copy; 2023 Boba Haven, Inc. All rights reserved.
-            </p>
-            <p className="font-gamja mt-5 text-center text-xl leading-5 text-pink-400 hover:scale-110">
-            <a href="mailto:info.bubblehaven@gmail.com">
-                info.bubblehaven@gmail.com
-            </a>
-            </p>
-            <p className="font-gamja mt-4 text-center text-xl leading-5 text-pink-400">
-            123 Bubble Lane Sipville, TeaTown 98765 BobaLand
-            </p>
-        </div>
-        </footer>
+      <footer className="bg-white">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
+          {/* Footer Nav Links */}
+          <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
+          {navigation.main.map((item) => (
+              <div key={item.name} className="pb-6 hover:animate-subtleBounce">
+              <Link to={item.href} className="font-twinkle text-xl leading-6 text-gray-600 hover:text-pink-400 file:">
+                  {item.name}
+              </Link>
+              </div>
+          ))}
+          </nav>
+          {/* Footer Social Nav Links */}
+          <div className="mt-10 flex justify-center space-x-10">
+          {navigation.social.map((item) => (
+              <a key={item.name} href={item.href} className="text-gray-600 hover:text-pink-400 transform transition-transform duration-300 hover:scale-150">
+              <span className="sr-only">{item.name}</span>
+              <item.icon className="h-6 w-6" aria-hidden="true" />
+              </a>
+          ))}
+          </div>
+          <p className="font-gamja mt-10 text-center text-xl leading-5 text-pink-400">
+          &copy; 2023 Boba Haven, Inc. All rights reserved.
+          </p>
+          <p className="font-gamja mt-5 text-center text-xl leading-5 text-pink-400 hover:scale-110">
+          <a href="mailto:info.bubblehaven@gmail.com">
+              info.bubblehaven@gmail.com
+          </a>
+          </p>
+          <p className="font-gamja mt-4 text-center text-xl leading-5 text-pink-400">
+          123 Bubble Lane Sipville, TeaTown 98765 BobaLand
+          </p>
+      </div>
+      </footer>
     )
 }
 
