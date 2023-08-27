@@ -41,11 +41,6 @@ function SignUpPage() {
                   <label htmlFor="password" className="font-gamja text-2xl block font-medium leading-6 text-gray-900">
                     Password
                   </label>
-                  <div className="text-sm">
-                    <a href="#" className="font-gamja text-xl text-indigo-600 hover:text-indigo-500">
-                      Forgot password?
-                    </a>
-                  </div>
                 </div>
                 <div className="mt-2">
                   <input
@@ -72,7 +67,7 @@ function SignUpPage() {
             </div>
   
             {/* Bottom Paragraph */}
-            <div className="font-gamja text-xl mt-10 text-center text-gray-500">
+            <div className="font-gamja text-xl mt-10 mb-10 text-center text-gray-500">
             <p>
                 Already have an account?{' '}
                     <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">

@@ -65,14 +65,14 @@ function LoginPage() {
                   type="submit"
                   className="font-twinkle text-2xl flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Login
+                  Log In
                 </button>
               </div>
             </form>
             </div>
   
             {/* Bottom Paragraph */}
-            <div className="font-gamja text-xl mt-10 text-center text-gray-500">
+            <div className="font-gamja text-xl mt-10 mb-10 text-center text-gray-500">
             <p>
                 Don't have an account?{' '}
                     <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
