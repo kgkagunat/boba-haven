@@ -86,7 +86,7 @@ function Footer() {
           <p className="font-gamja mt-10 text-center text-xl leading-5 text-pink-400">
           &copy; 2023 Boba Haven, Inc. All rights reserved.
           </p>
-          <p className="font-gamja mt-5 text-center text-xl leading-5 text-pink-400 hover:scale-110">
+          <p className="font-gamja mt-5 text-center text-xl leading-5 text-blue-400 hover:scale-110">
           <a href="mailto:info.bubblehaven@gmail.com">
               info.bubblehaven@gmail.com
           </a>
