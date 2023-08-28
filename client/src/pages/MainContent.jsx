@@ -17,7 +17,7 @@ import SignUpPage from './SignUpPage';
 
 function MainContent() {
   const location = useLocation();
-  const showNavbar = location.pathname !== "/login" && location.pathname !== "/signup";
+  const showNavbar = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about";
   const showFooter = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about";  
 
   return (
