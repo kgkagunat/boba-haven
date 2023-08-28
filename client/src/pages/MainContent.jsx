@@ -14,11 +14,12 @@ import Footer from '../components/Footer';
 import LoginPage from './LoginPage';
 import AboutPage from './AboutPage';
 import SignUpPage from './SignUpPage';
+import CartPage from './CartPage';
 
 function MainContent() {
   const location = useLocation();
-  const showNavbar = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about";
-  const showFooter = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about";  
+  const showNavbar = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about" && location.pathname !== "/cart";
+  const showFooter = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about" && location.pathname !== "/cart";  
 
   return (
     <>
@@ -34,6 +35,7 @@ function MainContent() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/cart' element={<CartPage />} />
         {/* Add other routes here */}
       </Routes>
       {showFooter && <Footer />}
