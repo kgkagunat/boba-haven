@@ -7,7 +7,7 @@ function Hero() {
         <div className="relative isolate overflow-hidden bg-gradient-to-r from-pink-100 to-pink-300 z-0">
 
             {/* SVG Overlay */}
-            <img src={goldenFlower} alt="confetti png from pngwing.com" className="absolute z-5 w-full opacity-10" style={{ WebkitUserDrag: 'none', userDrag: 'none' }} />
+            <img src={goldenFlower} alt="golden flower png from pngwing.com" className="absolute z-5 w-full opacity-10" style={{ WebkitUserDrag: 'none', userDrag: 'none' }} />
 
             <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
 
