@@ -75,14 +75,16 @@ function LoginPage() {
             <div className="font-gamja text-xl mt-10 mb-10 text-center text-gray-500">
             <p>
                 Don't have an account?{' '}
-                    <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                    <Link to="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-800 hover:underline">
                         Sign Up Here
                     </Link>
             </p>
-            <Link to="/" className="hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
-                Click me to go back home 
-                <FontAwesomeIcon icon={faHome} className="mr-2" />
-            </Link>
+              <div className="hover:text-slate-800 transform transition-transform duration-200 hover:scale-110 mt-5">
+              <Link to="/">
+                  Click me to go back home 
+                  <FontAwesomeIcon icon={faHome} className="mr-2" />
+              </Link>
+              </div>
             </div>
             
           </div>
