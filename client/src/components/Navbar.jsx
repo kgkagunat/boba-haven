@@ -11,7 +11,7 @@ function Navbar() {
     <nav className="bg-white bg-opacity-80 text-black sticky top-0 z-50 p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
 
-        <Link to="/" className="font-gamja text-4xl font-bold hover:text-pink-400">Bubble Haven</Link>
+        <Link to="/" className="font-gamja text-4xl font-bold hover:text-pink-400 hover:scale-110 transition ease-in-out duration-500">Bubble Haven</Link>
 
         {/* Centered links */}
         <div className="hidden md:flex space-x-8">
@@ -34,7 +34,7 @@ function Navbar() {
 
         {/* Login and the hamburger */}
         <div className="flex items-center space-x-4">
-          <Link to="/login" className="hidden md:block text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-110">
+          <Link to="/login" className="hidden md:block text-black hover:text-pink-400 transform transition-transform duration-200 hover:scale-110">
             <div className="border rounded-full p-2">
               <FontAwesomeIcon icon={faUser} /> Login
             </div>
