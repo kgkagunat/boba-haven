@@ -10,4 +10,4 @@ const drinkSchema = new Schema({
 
 const Drink = model('Drink', drinkSchema);
 
-module.exports = Tech;
+module.exports = Drink;
