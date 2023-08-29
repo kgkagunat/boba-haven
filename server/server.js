@@ -28,38 +28,38 @@ app.delete('/logout', (req,res)=> {
 
 app.post('/signup', async (req, res) => {
     const username = req.body.username;
-  const password = req.body.password;
-
-  // Check if the username already exists
-  const existingUser = users.find((user) => user.username === username);
-  if (existingUser) {
-    return res.status(400).send('Username already exists');
-  }
-
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = { username: username, passwordHash: hashedPassword };
-    users.push(newUser);
-    res.status(201).send('User created successfully');
-  } catch (error) {
-    res.status(500).send('Internal server error');
-  }
-})
+    const password = req.body.password;
+  
+    // Check if the username already exists
+    const existingUser = users.find((user) => user.username === username);
+    if (existingUser) {
+      return res.status(400).send('Username already exists');
+    }
+  
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = { username: username, passwordHash: hashedPassword };
+      users.push(newUser);
+      res.status(201).send('User created successfully');
+    } catch (error) {
+      res.status(500).send('Internal server error');
+    }
+  });
 
 app.post('/login', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
   
     const user = users.find((user) => user.username === username);
-  
+
     if (!user) {
       return res.status(401).send('Invalid username or password');
     }
-    
+  
     try {
       if (await bcrypt.compare(password, user.passwordHash)) {
         const accessToken = generateAccessToken({ username: user.username });
-        const refreshToken = jwt.sign({ username: user.username }, refreshTokenSecret);
+        const refreshToken = jwt.sign({ username: user.username }, process.env.REFRESH_TOKEN_SECRET);
         refreshTokens.push(refreshToken);
   
         res.json({ accessToken: accessToken, refreshToken: refreshToken });
