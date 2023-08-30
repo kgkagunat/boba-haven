@@ -47,7 +47,7 @@ const DrinkMenu = ({ id = "default-id" }) => {
             key={index}
             className="border border-3 border-slate-300 rounded-lg p-4 shadow-xl hover:animate-subtleBounce cursor-pointer"
           >
-            <img src={drink.image} alt={drink.name} className="w-full w object-cover rounded mb-4" />
+            <img src={drink.image} rel='preload' alt={drink.name} className="w-full w object-cover rounded mb-4" />
             <h3 className="font-gamja text-xl font-bold">{drink.name}</h3>
             <p className="font-gamja text-lg">{drink.description}</p>
             <p className="mt-2 font-bold">{drink.price}</p>
