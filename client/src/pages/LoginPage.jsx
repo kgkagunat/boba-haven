@@ -10,7 +10,7 @@ function LoginPage() {
         <div className="flex min-h-screen justify-center items-center px-6 py-12 lg:px-8 bg-gradient-to-r from-white to-pink-400 z-0">
 
         {/* SVG Overlay */}
-        <img src={blueFrame} alt="blue frame png from pngwing.com" className="absolute w-screen h-screen z-5 opacity-25 pointer-events-none" />
+        <img src={blueFrame} loading="lazy" alt="blue frame png from pngwing.com" className="absolute w-screen h-screen z-5 opacity-25 pointer-events-none" />
 
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="font-twinkle mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">
