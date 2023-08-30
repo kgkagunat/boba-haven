@@ -1,4 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDrinkDispatch } from '../utils/DrinkContext';
+import { ACTIONS } from '../utils/drinkReducer';
+
+
+// Image imports
 import blackSesameMilkTea from '../assets/images/Drinks_pics/Black Sesame Milk Tea.png';
 import brownSugarMilkTea from '../assets/images/Drinks_pics/Brown Sugar Milk Tea.png';
 import honeyDewMilkTea from '../assets/images/Drinks_pics/Honeydew Milk Tea.png';
@@ -11,6 +17,8 @@ import taroMilkTea from '../assets/images/Drinks_pics/Taro Milk Tea.png';
 import thaiMilkTea from '../assets/images/Drinks_pics/Thai Milk Tea.png';
 
 const DrinkMenu = ({ id = "default-id" }) => {
+  const dispatch = useDrinkDispatch();
+  const navigate = useNavigate();
 
   // `const drinks` will need to be placed on the backend(or server) in the future.
   const drinks = [
@@ -28,12 +36,17 @@ const DrinkMenu = ({ id = "default-id" }) => {
 
   return (
     <div id={id} className="p-4 bg-gradient-to-b from-purple-100 to-white">
-
       <h2 className="font-gamja text-4xl font-semibold mb-6 flex justify-center slide-in-bottom">Drink Menu</h2>
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 slide-in-bottom">
         {drinks.map((drink, index) => (
-          <div key={index} className="border border-3 border-slate-300 rounded-lg p-4 shadow-xl hover:animate-subtleBounce">
+          <div 
+            onClick={() => {
+              dispatch({ type: ACTIONS.SET_SELECTED_DRINK, payload: drink });
+              navigate(`/drinks/${index}`);  // <-- Updated this line
+            }}
+            key={index}
+            className="border border-3 border-slate-300 rounded-lg p-4 shadow-xl hover:animate-subtleBounce cursor-pointer"
+          >
             <img src={drink.image} alt={drink.name} className="w-full w object-cover rounded mb-4" />
             <h3 className="font-gamja text-xl font-bold">{drink.name}</h3>
             <p className="font-gamja text-lg">{drink.description}</p>
@@ -42,7 +55,7 @@ const DrinkMenu = ({ id = "default-id" }) => {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 export default DrinkMenu
