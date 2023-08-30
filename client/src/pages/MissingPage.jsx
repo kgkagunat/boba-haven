@@ -16,9 +16,10 @@ function MissingPage() {
 
             <h1 className="mt-4 font-twinkle text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Page not found</h1>
 
-            <img className='mt-2 max-w-lg w-full flex justify-center pointer-events-none' src={CuteGirl} alt='cute girl holding phone, by: mamewmy from freepik.com'></img>
+            <img className='mt-2 block mx-auto max-w-lg w-full justify-center pointer-events-none' src={CuteGirl} alt='cute girl holding phone, by: mamewmy from freepik.com'></img>
 
-            <p className="mt-6 font-gamja text-2xl leading-7 text-gray-600">Uh 0h, the page you are looking for doesn't exist</p>
+            <p className="mt-6 font-gamja text-3xl leading-7 text-gray-600">Uh Oh!?</p>
+            <p className="mt-6 font-gamja text-2xl leading-7 text-gray-600">The page you are looking for doesn't exist or is currently in progress.</p>
             
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
