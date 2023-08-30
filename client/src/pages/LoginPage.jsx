@@ -1,10 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import blueFrame from '../assets/images/blue_frame1_pngwing.png';
 
+import Auth from '../utils/auth';
+
 function LoginPage() {
+
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  //const [login, { error, data }] = useMutation(LOGIN_USER);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+    try {
+      const { data } = await LoginPage({
+        variables: { ...formState },
+      });
+  
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
+  
+    // clear form values
+    setFormState({
+      email: '',
+      password: '',
+    });
+  };
     return (
       <>
         <div className="flex min-h-screen justify-center items-center px-6 py-12 lg:px-8 bg-gradient-to-r from-white to-pink-400 z-0">
@@ -19,7 +53,7 @@ function LoginPage() {
           
             {/* Form */}
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="space-y-6 mt-6" action="#" method="POST">
+            <form onSubmit={handleFormSubmit} className="space-y-6 mt-6" action="#" method="POST">
               <div>
                 <label htmlFor="email" className="font-gamja block text-2xl font-medium leading-6 text-gray-900">
                   Email address
@@ -30,6 +64,7 @@ function LoginPage() {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    onChange = {handleChange}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -53,6 +88,7 @@ function LoginPage() {
                     name="password"
                     type="password"
                     autoComplete="current-password"
+                    onChange = {handleChange}
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />

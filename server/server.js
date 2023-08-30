@@ -2,18 +2,19 @@ require('dotenv').config()
 
 const express = require("express")
 const app = express()
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
+/* const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt') */
 
 app.use(express.json())
 
-let refreshTokens = []//Needs to be moved into database, this was only for testing purposes.
+/* let refreshTokens = []//Needs to be moved into database, this was only for testing purposes.
 const users = []//This line is serving the same purpose as above, testing purpose only, move to using the database after that is made.
 
 app.post('/token', (req,res)=>{
     const refreshToken = req.body.token
     if (refreshToken === null) return res.sendStatus(401)
     if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
+
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user)=> {
         if(err) return res.sendStatus(403)
         const accessToken = generateAccessToken({ name: user.name })
@@ -35,7 +36,7 @@ app.post('/signup', async (req, res) => {
     if (existingUser) {
       return res.status(400).send('Username already exists');
     }
-  
+    
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = { username: username, passwordHash: hashedPassword };
@@ -74,6 +75,6 @@ app.post('/login', async (req, res) => {
 function generateAccessToken(user){
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10m'})
 }
-
-app.listen(3000)
+ */
+app.listen(4000)
 
