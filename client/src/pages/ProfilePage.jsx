@@ -2,6 +2,11 @@ import React from 'react'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import goldFrame from '../assets/images/gold_frame_pngwing.png'
+
+
 
 // const `user` is pure "placeholder"
 const user = {
@@ -21,10 +26,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+function ProfilePage() {
   return (
     <>
-      <div className="min-h-full">
+      <div className="min-h-full flex flex-col">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -32,11 +37,7 @@ export default function Example() {
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <img
-                        className="h-8 w-8"
-                        src=""
-                        alt="Your Company"
-                      />
+                      <h1 className="font-gamja text-4xl font-bold text-pink-400">Bubble Haven</h1>
                     </div>
                   </div>
                   <div className="hidden md:block">
@@ -48,7 +49,9 @@ export default function Example() {
                           <Menu.Button className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="absolute -inset-1.5" />
                             <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                            <FontAwesomeIcon icon={faUser} className="text-white" />
+
+
                           </Menu.Button>
                         </div>
                         <Transition
@@ -126,41 +129,48 @@ export default function Example() {
           )}
         </Disclosure>
 
-        {/* Header */}       
-        <header className="bg-white shadow">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-center">
-            <h1 className="font-twinkle text-4xl font-bold tracking-tight text-gray-900">Welcome to your Haven</h1>
-          </div>
-        </header>
-
-        {/* Profile Content goes here */}
-        <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-
-            <div className="px-4 sm:px-0">
-              <h3 className="font-gamja text-4xl font-semibold leading-7 text-gray-900">Your Boba details</h3>
+        
+        <div>
+        {/* SVG Overlay */}
+        <img src={goldFrame} alt="gold frame png from pngwing.com" className="absolute w-screen h-screen z-5 opacity-10 pointer-events-none" />
+          
+          {/* Header */}       
+          <header className="bg-white shadow bg-gradient-to-t from-white to-pink-300">
+            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-center">
+              <h1 className="font-twinkle text-4xl font-bold tracking-tight text-gray-900">Welcome to your Haven</h1>
             </div>
+          </header>
 
-              <div className="mt-6 border-t border-gray-100">
-                <dl className="divide-y divide-gray-100">
+          {/* Profile Content goes here */}
+          <main className="flex-grow min-h-screen bg-gradient-to-b from-white to-pink-400">
+            <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
 
-                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt className="font-gamja text-3xl leading-6 text-gray-900">Full name</dt>
-                    <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user.name}</dd>
-                  </div>
-
-                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                    <dt className="font-gamja text-3xl leading-6 text-gray-900">Email address</dt>
-                    <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user.email}</dd>
-                  </div>
-
-
-                </dl>
+              <div className="px-4 sm:px-0">
+                <h3 className="font-gamja text-4xl font-semibold leading-7 text-gray-900">Your Boba details</h3>
               </div>
-            </div>
 
-        </main>
+                <div className="mt-6 border-t border-gray-100">
+                  <dl className="divide-y divide-gray-100">
+
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="font-gamja text-3xl leading-6 text-gray-900">Full name</dt>
+                      <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user.name}</dd>
+                    </div>
+
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="font-gamja text-3xl leading-6 text-gray-900">Email address</dt>
+                      <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user.email}</dd>
+                    </div>
+
+                  </dl>
+                </div>
+              </div>
+          </main>
+        </div>
+        
       </div>
     </>
   )
 }
+
+export default ProfilePage;

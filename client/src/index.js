@@ -4,7 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './tailwind.css';                          // This is tailwind css (DO NOT REMOVE)
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
+library.add(faUser);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
