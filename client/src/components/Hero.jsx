@@ -7,7 +7,7 @@ function Hero() {
         <div className="relative isolate overflow-hidden bg-gradient-to-r from-pink-100 to-pink-300 z-0">
 
             {/* SVG Overlay */}
-            <img src={goldenFlower} alt="golden flower png from pngwing.com" className="absolute z-5 w-full opacity-10" style={{ WebkitUserDrag: 'none', userDrag: 'none' }} />
+            <img src={goldenFlower} loading="lazy" alt="golden flower png from pngwing.com" className="absolute z-5 w-full opacity-10" style={{ WebkitUserDrag: 'none', userDrag: 'none' }} />
 
             <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
 
@@ -39,6 +39,7 @@ function Hero() {
                         <div className="relative rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:p-4">
                             <img
                                 src={HeroPic}
+                                rel='preload'
                                 alt="Boba Hero Image - Created by: pikisuperstar - Freepik.com"
                                 className="w-full object-cover object-center rounded-md shadow-2xl ring-1 ring-gray-900/10"
                                 style={{ WebkitUserDrag: 'none', userDrag: 'none' }}
