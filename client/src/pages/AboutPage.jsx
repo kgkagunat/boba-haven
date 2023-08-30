@@ -31,7 +31,7 @@ function About() {
         {/* SVG Overlay */}
         <img src={confettiImage} alt="confetti png from pngwing.com" className="absolute max-w-screen max-h-screen z-10 opacity-10" />
 
-        <div className="absolute z-20 mx-auto max-w-7xl px-6 text-center lg:px-8">
+        <div className="absolute z-20 mt-10 mx-auto max-w-7xl px-6 text-center lg:px-8">
           <div className="mx-auto max-w-2xl">
             <h2 className="font-twinkle text-3xl font-bold tracking-tight text-black sm:text-4xl slide-in-top">Meet our Bubble Haven team</h2>
             <p className="font-gamja text-3xl mt-4 leading-8 text-black slide-in-top-2">
@@ -46,7 +46,7 @@ function About() {
           </div>
           <ul
             role="list"
-            className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8 slide-in-top-2"
+            className="mx-auto mt-20 mb-4 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8 slide-in-top-2"
           >
             {people.map((person) => (
               <li key={person.name} className="rounded-2xl bg-gray-700 px-8 py-10">
