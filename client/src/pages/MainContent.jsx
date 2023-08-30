@@ -16,11 +16,12 @@ import AboutPage from './AboutPage';
 import SignUpPage from './SignUpPage';
 import CartPage from './CartPage';
 import ProfilePage from './ProfilePage';
+import MissingPage from './MissingPage';
 
 function MainContent() {
   const location = useLocation();
-  const showNavbar = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about" && location.pathname !== "/cart" && location.pathname !== "/profile";
-  const showFooter = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about" && location.pathname !== "/cart" && location.pathname !== "/profile";  
+  const showNavbar = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about" && location.pathname !== "/cart" && location.pathname !== "/profile" && location.pathname !== "/404";
+  const showFooter = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about" && location.pathname !== "/cart" && location.pathname !== "/profile" && location.pathname !== "/404";  
 
   return (
     <>
@@ -38,6 +39,7 @@ function MainContent() {
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='/cart' element={<CartPage />} />
         <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/404' element={<MissingPage />} />
         {/* Add other routes here */}
       </Routes>
       {showFooter && <Footer />}
