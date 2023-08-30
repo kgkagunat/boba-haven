@@ -18,6 +18,7 @@ const drinkSchema = new Schema({
         ref: 'Size',
     },
   ],
+  
   image: {
       type: String,
       required: true,

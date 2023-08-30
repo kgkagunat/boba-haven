@@ -28,6 +28,12 @@ const userSchema = new Schema({
         type: Date,
         required: true,
     },
+    orders: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Orders',
+        },
+    ],
 
 })
 
