@@ -14,10 +14,11 @@ import Footer from '../components/Footer';
 import LoginPage from './LoginPage';
 import AboutPage from './AboutPage';
 import SignUpPage from './SignUpPage';
-import CartPage from './CartPage';
 import ProfilePage from './ProfilePage';
-import MissingPage from './MissingPage';
 import DrinksPage from './DrinksPage';
+import CartPage from './CartPage';
+import CheckoutPage from './CheckoutPage';
+import MissingPage from './MissingPage';
 
 function MainContent() {
   const location = useLocation();
@@ -55,10 +56,11 @@ function MainContent() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/cart' element={<CartPage />} />
         <Route path='/profile' element={<ProfilePage />} />
-        <Route path='/404' element={<MissingPage />} />
         <Route path="/drinks/:id" element={<DrinksPage />} />
+        <Route path='/cart' element={<CartPage />} />
+        <Route path='/checkout' element={<CheckoutPage />} />
+        <Route path='/404' element={<MissingPage />} />
         {/* Add other routes here */}
       </Routes>
       {showFooter && <Footer />}
