@@ -1,15 +1,27 @@
 import React from 'react';
 import { useDrinkState } from '../utils/DrinkContext';
+import { useNavigate } from 'react-router-dom';
+import atmosBlue from '../assets/images/atmos_blue_pngwing.png';
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+
 
 const DrinksPage = () => {
     const { selectedDrink } = useDrinkState();
+    const navigate = useNavigate();
 
     if (!selectedDrink) {
-        return <div>Drink not found!</div>;
+        navigate.push('/404');
+        return null; // Return null since we're redirecting to another page
     }
 
     return (
-        <div className="bg-white flex justify-center items-center h-screen">
+        <div className="bg-radial-gradient-white-pink flex justify-center items-center h-screen z-0">
+
+        {/* SVG Overlay */}
+        <img src={atmosBlue} loading="lazy" alt="blue atmosphere png from pngwing.com" className="absolute w-screen h-screen z-5 opacity-20 pointer-events-none" />
+
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                 <div className="lg:max-w-lg lg:self-end">
 
@@ -34,7 +46,7 @@ const DrinksPage = () => {
 
                     {/* Drink Image */}
                     <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg">
-                        <img src={selectedDrink.image} alt={selectedDrink.name} className="h-full w-full object-cover object-center" />
+                        <img src={selectedDrink.image} alt={selectedDrink.name} className="h-full w-full object-cover object-center z-0" />
                     </div>
 
                 </div>
@@ -53,6 +65,12 @@ const DrinksPage = () => {
                             </div>
                         </form>
                     </section>
+                    <div className="font-gamja flex justify-center text-xl mt-4 hover:text-pink-400 hover:scale-110">
+                    <Link to="/" className="">
+                        Click me to go back home 
+                        <FontAwesomeIcon icon={faHome} className="mr-2" />
+                    </Link>
+                </div>
                 </div>
             </div>
         </div>
