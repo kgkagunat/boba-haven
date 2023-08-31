@@ -83,12 +83,15 @@ function Cart() {
             </div>
 
             <div className="mt-10">
+              <Link to="/checkout">
               <button
-                type="submit"
+                type="button"
                 className="font-gamja text-2xl w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
               >
                 Checkout
               </button>
+              </Link>
+              
             </div>
 
             <div className="font-gamja text-xl mt-6 text-center">
