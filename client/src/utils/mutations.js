@@ -1,6 +1,8 @@
 // utils/mutations.js
 import { gql } from '@apollo/client';
 
+//! DOUBLE CHECK BACKEND MUTATIONS and MODELS. HIGHLY LIKELY TO CHANGE
+//! THESE ARE JUST A TEMP for NOW
 export const LOGIN_USER = gql`
 mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
