@@ -63,10 +63,10 @@ const DrinksPage = () => {
                             </div>
                         </form>
                     </section>
-                    <div className="font-gamja flex justify-center text-xl mt-4 hover:text-pink-400 hover:scale-110">
+                    <div className="font-gamja flex justify-center text-xl mt-4 transform transition-transform duration-200 hover:text-pink-400 hover:scale-110">
                     <Link to="/" className="">
                         Click me to go back home 
-                        <FontAwesomeIcon icon={faHome} className="mr-2" />
+                        <FontAwesomeIcon icon={faHome} />
                     </Link>
                 </div>
                 </div>

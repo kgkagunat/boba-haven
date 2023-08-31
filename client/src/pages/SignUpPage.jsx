@@ -80,7 +80,7 @@ function SignUpPage() {
             <div className="hover:text-slate-800 transform transition-transform duration-200 hover:scale-110 mt-5">
               <Link to="/">
                   Click me to go back home 
-                  <FontAwesomeIcon icon={faHome} className="mr-2" />
+                  <FontAwesomeIcon icon={faHome} />
               </Link>
               </div>
             </div>
