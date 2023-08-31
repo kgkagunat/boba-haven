@@ -12,21 +12,31 @@ const DrinksPage = () => {
         <div className="bg-white flex justify-center items-center h-screen">
             <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                 <div className="lg:max-w-lg lg:self-end">
-                    <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{selectedDrink.name}</h1>
+
+                    {/* Drink Name */}
+                    <h1 className="font-twinkle text-3xl font-bold tracking-tight text-black sm:text-4xl">{selectedDrink.name}</h1>
                     <section aria-labelledby="information-heading" className="mt-4">
-                        <p className="text-lg text-gray-900 sm:text-xl">{selectedDrink.price}</p>
+
+                        {/* Drink Price */}
+                        <p className="font-gamja text-2xl text-black">{selectedDrink.price}</p>
+
+                        {/* Drink Description */}
                         <div className="mt-4 space-y-6">
-                            <p className="text-base text-gray-500">{selectedDrink.description}</p>
+                            <p className="font-gamja text-2xl text-gray-500">{selectedDrink.description}</p>
                         </div>
+
                         <div className="mt-6 flex items-center">
-                            <p className="ml-2 text-sm text-gray-500">In stock and ready to ship</p>
+                            <p className="font-gamja text-xl ml-2 text-gray-500">Calories</p>
                         </div>
                     </section>
                 </div>
                 <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
+
+                    {/* Drink Image */}
                     <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg">
                         <img src={selectedDrink.image} alt={selectedDrink.name} className="h-full w-full object-cover object-center" />
                     </div>
+
                 </div>
                 <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
                     <section aria-labelledby="options-heading">
@@ -36,7 +46,7 @@ const DrinksPage = () => {
                             <div className="mt-10">
                                 <button
                                     type="submit"
-                                    className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                                    className="font-gamja text-3xl flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                                 >
                                     Add to cart
                                 </button>
