@@ -53,8 +53,6 @@ const DrinksPage = () => {
                 <div className="mt-10 lg:col-start-1 lg:row-start-2 lg:max-w-lg lg:self-start">
                     <section aria-labelledby="options-heading">
                         <form>
-                            <div className="sm:flex sm:justify-between"></div>
-                            <div className="mt-4"></div>
                             <div className="mt-10">
                                 <button
                                     type="submit"
