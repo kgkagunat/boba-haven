@@ -110,3 +110,8 @@ code {
   animation: slideInFromBottom 2s forwards;
 }
 /* Slide In Animations (end here) */
+
+.icon-1\.4x {
+  font-size: 1.4em;
+}
+
