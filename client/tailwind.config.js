@@ -22,7 +22,7 @@ module.exports = {
         subtleBounce: 'subtleBounce 1s forwards'
       },
       backgroundImage: theme => ({
-        'radial-gradient-white-pink': 'radial-gradient(circle, #FFFFFF, #FFC0CB)',
+        'radial-gradient-white-pink': 'radial-gradient(circle, #FFFFFF, #FFCEFF)',
       }),
     },
   },
