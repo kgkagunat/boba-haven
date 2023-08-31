@@ -9,8 +9,8 @@ export default function Example() {
           <div className="max-w-xl lg:max-w-lg">
             <h2 className="font-twinkle text-3xl font-bold tracking-tight text-black sm:text-4xl"> Boba Haven's Magical Monthly Brigade!</h2>
             <p className="font-gamja mt-4 text-xl leading-8 text-black">
-              Hey Boba Brigade crew! Celebrate with use with our new incoming drink called the "Fall Magic"! Enjoy the taste of autumn swirls flavors, with enchanting aromas of pumpkin spice, and a hint of cinnamon.
-              Be among the first to taste this limited edition drink!
+            Hey, Boba Brigade crew! Come celebrate with us and try our upcoming new drink, the 'Fall Magic'! 
+            Enjoy the taste of autumn's swirling flavors, featuring enchanting aromas of pumpkin spice and a hint of cinnamon. Be among the first to savor this limited-edition drink!
             </p>
             <div className="mt-6 flex max-w-md gap-x-4">
               <label htmlFor="email-address" className="sr-only">
