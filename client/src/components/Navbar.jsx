@@ -16,19 +16,19 @@ function Navbar() {
         {/* Centered links */}
         <div className="hidden md:flex space-x-8">
           <a href="#" className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150">
-            <FontAwesomeIcon icon={faHome} className="mr-2" />
+            <FontAwesomeIcon icon={faHome} className="icon-1.4x p-1" />
           </a>
           {/* Drink Menu links */}
           <a href="#drink-menu" className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150">
-            <FontAwesomeIcon icon={faUtensils} className="mr-2" />
+            <FontAwesomeIcon icon={faUtensils} className="icon-1.4x p-1" />
           </a>
           {/* About links */}
           <Link to="/about" className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150">
-              <FontAwesomeIcon icon={faQuestionCircle} className="mr-2" />
+              <FontAwesomeIcon icon={faQuestionCircle} className="icon-1.4x p-1" />
           </Link>
           {/* Cart links */}
           <Link to="/cart" className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150">
-              <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
+              <FontAwesomeIcon icon={faShoppingCart} className="icon-1.4x p-1" />
           </Link>
         </div>
 
@@ -52,23 +52,25 @@ function Navbar() {
       {/* Hamburger links */}
       <div className={`md:hidden ${isOpen ? 'flex' : 'hidden'} flex-col items-center mt-2`}>
         <a href="#" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
-          <FontAwesomeIcon icon={faHome} className="mr-2" />
+          <FontAwesomeIcon icon={faHome} className="icon-1.4x p-2" />
         </a>
         {/* Drink Menu links */}
         <a href="#drink-menu" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
-          <FontAwesomeIcon icon={faUtensils} className="mr-2" />
+          <FontAwesomeIcon icon={faUtensils} className="icon-1.4x p-2" />
         </a>
         {/* About links */}
         <Link to="/about" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
-            <FontAwesomeIcon icon={faQuestionCircle} className="mr-2" />
+            <FontAwesomeIcon icon={faQuestionCircle} className="icon-1.4x p-2" />
         </Link>
         {/* Cart links */}
         <Link to="/cart" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
-            <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
+            <FontAwesomeIcon icon={faShoppingCart} className="icon-1.4x p-2" />
         </Link>
         {/* Login links */}
         <Link to="/login" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
-          Login
+          <div className="border rounded-full p-2">
+            <FontAwesomeIcon icon={faUser} /> Login
+          </div>
         </Link>
       </div>
     </nav>
