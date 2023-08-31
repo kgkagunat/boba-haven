@@ -29,7 +29,8 @@ function MainContent() {
     "/cart",
     "/profile",
     "/404",
-    "/drinks"
+    "/drinks",
+    "/checkout"
   ].some(path => location.pathname.startsWith(path));
   
   const showFooter = ![
@@ -39,7 +40,8 @@ function MainContent() {
     "/cart",
     "/profile",
     "/404",
-    "/drinks"
+    "/drinks",
+    "/checkout"
   ].some(path => location.pathname.startsWith(path));
 
   return (
