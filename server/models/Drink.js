@@ -12,18 +12,23 @@ const drinkSchema = new Schema({
       required: true,
   
   },
-  sizeOptions: [
-    {
-        type: Schema.Types.ObjectId,
-        ref: 'Size',
-    },
-  ],
-  
+  mediumPrice: {        // This is the base price for the drinks
+      type: Number,
+      required: true,
+  },
   image: {
       type: String,
       required: true,
   },
+});
 
+// Virtual fields to get small and large prices for drinks
+drinkSchema.virtual('smallPrice').get(function () {
+  return this.mediumPrice - 1.00;
+});
+
+drinkSchema.virtual('largePrice').get(function () {
+  return this.mediumPrice + 1.00;
 });
 
 const Drink = model('Drink', drinkSchema);
