@@ -1,0 +1,112 @@
+[
+    {
+        "name": "Black Sesame Milk Tea",
+        "description": "Taste the mystique of roasted sesame in a milky blend! Dive deep into the luscious, velvety flavor of an ancient seed.",
+        "image": "../client/src/assets/images/Drinks_pics/Black Sesame Milk Tea.png",
+        "prices": {
+            "small": 4.29,
+            "medium": 5.29,
+            "large": 6.29
+        }
+    },
+    {
+        "name": "Brown Sugar Milk Tea",
+        "description": "Indulge in the caramelized goodness of brown sugar. A nostalgic sip that'll remind you of sweet childhood memories!",
+        "image": "../client/src/assets/images/Drinks_pics/Brown Sugar Milk Tea.png",
+        "prices": {
+            "small": 4.50,
+            "medium": 5.50,
+            "large": 6.50
+        }
+        
+    },
+    {
+        "name": "Honeydew Milk Tea",
+        "description": "Experience a refreshing splash of summer with every sip! Honeydew's subtle sweetness is a dream in creamy liquid form.",
+        "image": "../client/src/assets/images/Drinks_pics/Honeydew Milk Tea.png",
+        "prices": {
+            "small": 3.35,
+            "medium": 4.35,
+            "large": 5.35
+        }
+        
+    },
+    {
+        "name": "Jasmine Milk Tea",
+        "description": "Elegance in a cup! Let the fragrant allure of jasmine blossoms whisk you away on an aromatic journey.",
+        "image": "../client/src/assets/images/Drinks_pics/Jasmine Milk Tea.png",
+        "prices": {
+            "small": 3.49,
+            "medium": 4.49,
+            "large": 5.49
+        }
+        
+    },
+    {
+        "name": "Lychee Milk Tea",
+        "description": "Tropical delight! Dance to the rhythm of island vibes with the exotic taste of lychee pearls.",
+        "image": "../client/src/assets/images/Drinks_pics/Lychee Milk Tea.png",
+        "prices": {
+            "small": 3.59,
+            "medium": 4.59,
+            "large": 5.59
+        }
+        
+    },
+    {
+        "name": "Mango Milk Tea",
+        "description": "A tropical treasure! Dive into the sun-kissed sweetness of ripe mangoes, blended to perfection.",
+        "image": "../client/src/assets/images/Drinks_pics/Mango Milk Tea.png",
+        "prices": {
+            "small": 3.89,
+            "medium": 4.89,
+            "large": 5.89
+        }
+        
+    },
+    {
+        "name": "Matcha Green Tea",
+        "description": "Awaken your senses! Dive into the earthy richness of matcha, a timeless Japanese classic.",
+        "image": "../client/src/assets/images/Drinks_pics/Matcha Green Tea.png",
+        "prices": {
+            "small": 4.10,
+            "medium": 5.10,
+            "large": 6.10
+        }
+        
+    },
+    {
+        "name": "Strawberry Milk Tea",
+        "description": "A rosy rendezvous! Sip on the pure, sweet essence of farm-fresh strawberries and cream.",
+        "image": "../client/src/assets/images/Drinks_pics/Strawberry Milk Tea.png",
+        "prices": {
+            "small": 3.49,
+            "medium": 4.49,
+            "large": 5.49
+        }
+        
+    },
+    {
+        "name": "Taro Milk Tea",
+        "description": "A sip of purple magic! Let the creamy, nutty flavors of taro transport you to a realm of flavor fantasy.",
+        "image": "../client/src/assets/images/Drinks_pics/Taro Milk Tea.png",
+        "prices": {
+            "small": 3.29,
+            "medium": 4.29,
+            "large": 5.29
+        }
+        
+    },
+    {
+        "name": "Thai Milk Tea",
+        "description": "A journey to Thailand in a cup! Embrace the rich and creamy symphony of spices and sweetness.",
+        "image": "../client/src/assets/images/Drinks_pics/Thai Milk Tea.png",
+        "prices": {
+            "small": 3.99,
+            "medium": 4.99,
+            "large": 5.99
+        }
+        
+    }
+]
+
