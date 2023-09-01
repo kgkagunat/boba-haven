@@ -51,7 +51,7 @@ export function AuthProvider({ children }) {
     login,
     signup,
     logout,
-    errors  // Exposing the errors so that you can use them in your components
+    errors  // Exposing errors
   };
 
   return (
