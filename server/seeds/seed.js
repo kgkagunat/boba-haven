@@ -6,14 +6,21 @@ const userSeeds = require('./userData.json');
 
 db.once('open', async () => {
     try {
+        // Delete existing data first
         await Orders.deleteMany({});
         await Drink.deleteMany({});
         await Size.deleteMany({});
         await User.deleteMany({});
         
+        // Get sizes back from seed
+        const createdSizes = await Size.create(sizeSeeds);
+        // Map sizes with the drinks
+        const drinksWithSize = drinkSeeds.map(drink => {
+            drink.sizeOptions = createdSizes.map(size => size._id);
+            return drink;
+        });
 
-        await Size.create(sizeSeeds);
-        await Drink.create(drinkSeeds);
+        await Drink.create(drinksWithSize);
         await User.create(userSeeds);
 
         console.log('all done!');
