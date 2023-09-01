@@ -52,19 +52,22 @@ const resolvers = {
                 throw new AuthenticationError('Not logged in');
             }
             const order = await Orders.create({ drinks });
+            await User.findByIdAndUpdate(
+                context.user._id, 
+                { $push: { orders: order._id } }
+            );
+            return order;
         },
-        removeDrinkFromOrder: async (parent, { drinkId }, context) => {
+        removeDrinkFromOrder: async (parent, { drinkId, orderId }, context) => {
             if(!context.user) {
                 throw new AuthenticationError('Not logged in');
             }
-            const order = await Orders.findOneAndUpdate(
-                { _id: context.user._id },
-                { $pull: { drinks: drinkId } },
-                { new: true }
-            );
+            const order = await Orders.findByIdAndUpdate(
+                orderId, 
+                { $pull: { drinks: drinkId } }, 
+                { new: true });
             return order;
         }
-
     }
 };
 
