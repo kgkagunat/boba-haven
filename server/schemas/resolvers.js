@@ -8,6 +8,9 @@ const resolvers = {
         drinks: async () => {
             return await Drink.find({}).populate('sizeOptions');
         },
+        size: async () => {
+            return await Size.find({});
+        },
         drink: async (parent, { drinkId }) => {
             return Drink.findOne({ _id: drinkId });
         },

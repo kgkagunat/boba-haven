@@ -10,7 +10,7 @@ const drinkSchema = new Schema({
   description: {
       type: String,
       required: true,
-      unique: true,
+  
   },
   sizeOptions: [
     {
