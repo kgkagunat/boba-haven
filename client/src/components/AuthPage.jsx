@@ -15,9 +15,6 @@ import { useAuth } from '../utils/AuthContext';
 
 function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottomParagraphText, bottomLinkText }) {
 
-  // This will log the pageTitle every time the component is rendered.
-  console.log("Page title:", pageTitle);
-
   // Declare and initialize state variables
   const navigate = useNavigate();
   const { login, signup, errors } = useAuth(); // Destructure the required functions and errors from the context
