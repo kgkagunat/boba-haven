@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUtensils, faQuestionCircle, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 
+// Import auth context
+import { useAuth } from '../utils/AuthContext';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { currentUser, logout } = useAuth();
 
   return (
     <nav className="bg-white bg-opacity-80 text-black sticky top-0 z-50 p-4 shadow-lg">
@@ -32,13 +35,24 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* Login and the hamburger */}
+        {/* Log In */}
         <div className="flex items-center space-x-4">
-          <Link to="/login" className="hidden md:block text-black hover:text-pink-400 transform transition-transform duration-200 hover:scale-110">
+        {currentUser ? (
+          <>
+            {/* If logged in, show user info or avatar */}
+            <div>
+              {/* Display any user-specific info like currentUser.email */}
+              Welcome, {currentUser.email}!
+            </div>
+            <button onClick={logout}>Logout</button>
+          </>
+        ) : (
+          <Link to="/login" className="hidden md:block text-black hover:text-pink-400">
             <div className="border rounded-full p-2">
               <FontAwesomeIcon icon={faUser} /> Login
             </div>
           </Link>
+        )}
 
           {/* Hamburger */}
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden flex items-center">
@@ -54,24 +68,30 @@ function Navbar() {
         <a href="#" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
           <FontAwesomeIcon icon={faHome} className="icon-1.4x p-2" />
         </a>
-        {/* Drink Menu links */}
+        {/* Drink Menu Hamburger */}
         <a href="#drink-menu" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
           <FontAwesomeIcon icon={faUtensils} className="icon-1.4x p-2" />
         </a>
-        {/* About links */}
+        {/* About Hamburger */}
         <Link to="/about" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
             <FontAwesomeIcon icon={faQuestionCircle} className="icon-1.4x p-2" />
         </Link>
-        {/* Cart links */}
+        {/* Cart Hamburger */}
         <Link to="/cart" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
             <FontAwesomeIcon icon={faShoppingCart} className="icon-1.4x p-2" />
         </Link>
-        {/* Login links */}
-        <Link to="/login" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
-          <div className="border rounded-full p-2">
-            <FontAwesomeIcon icon={faUser} /> Login
-          </div>
-        </Link>
+        {/* Login Hamburger */}
+        {currentUser ? (
+          <button onClick={logout} className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
+            Logout
+          </button>
+        ) : (
+          <Link to="/login" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
+            <div className="border rounded-full p-2">
+              <FontAwesomeIcon icon={faUser} /> Login
+            </div>
+          </Link>
+        )}
       </div>
     </nav>
   );
