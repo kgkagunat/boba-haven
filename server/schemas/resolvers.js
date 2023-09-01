@@ -11,9 +11,6 @@ const resolvers = {
         drink: async (parent, { drinkId }) => {
             return Drink.findOne({ _id: drinkId });
         },
-        test: async () => {
-            return await User.find({});
-        },
         user: async (parent, args, context) => {
             if(context.user) {
                 return context.user;
