@@ -4,9 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import blueFrame from '../assets/images/blue_frame1_pngwing.png';
 
-// Import apollo, mutations
-import { useMutation } from '@apollo/client';
-import { LOGIN_USER, SIGNUP_USER } from '../utils/mutations';
+// Import auth
+import { useAuth } from '../utils/AuthContext';
+
+// // Import apollo, mutations
+// import { useMutation } from '@apollo/client';
+// import { LOGIN_USER, SIGNUP_USER } from '../utils/mutations';
+
+
 
 function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottomParagraphText, bottomLinkText }) {
 
@@ -15,25 +20,23 @@ function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottom
 
   // Declare and initialize state variables
   const navigate = useNavigate();
+  const { login, signup, errors } = useAuth(); // Destructure the required functions and errors from the context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');  // only needed for signup
 
   const isLoginPage = pageTitle === 'Log In';
-  const [authUser, { error }] = useMutation(isLoginPage ? LOGIN_USER : SIGNUP_USER, {
-      onCompleted: (data) => {
-          const token = isLoginPage ? data.login.token : data.signup.token;
-          localStorage.setItem('jwt', token);
-          navigate('/profile');  // Navigate after successful submission
-      }
-  });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-        const variables = isLoginPage ? { email, password } : { username, email, password };
-        await authUser({ variables });
+        if (isLoginPage) {
+            await login(email, password);  // Use the login function from the AuthContext
+        } else {
+            await signup(username, email, password);  // Use the signup function from the AuthContext
+        }
+        navigate('/profile');  // Navigate after successful submission
     } catch (err) {
         console.error('Error during authentication:', err);
     }
@@ -143,11 +146,14 @@ function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottom
             </div>
           </div>
           
+          {/* Error Message */}
+          {(errors.loginError || errors.signupError) && (
+            <div className="mt-2 text-red-500 text-sm">
+                {isLoginPage ? errors.loginError?.message : errors.signupError?.message}
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Error Message */}
-      {error && <div className="mt-2 text-red-500 text-sm">{error.message}</div>}
     </>
   );
 }
