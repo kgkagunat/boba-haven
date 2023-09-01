@@ -4,15 +4,11 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        
         drinks: async () => {
-            return await Drink.find({}).populate('sizeOptions');
+            return await Drink.find({});
         },
         drink: async (parent, { drinkId }) => {
             return Drink.findOne({ _id: drinkId });
-        },
-        sizes: async () => {
-            return await Size.find({});
         },
         user: async (parent, args, context) => {
             if(context.user) {
@@ -26,7 +22,7 @@ const resolvers = {
             throw new AuthenticationError('Not logged in');
         },
         order: async (parent, { _id }) => {
-            return await Orders.findOne({ _id }).populate('drinks');
+            return await Orders.findOne({ _id }).populate('drinks.drink');
         },
     },
     Mutation: {
@@ -51,11 +47,18 @@ const resolvers = {
             if(!context.user) {
                 throw new AuthenticationError('Not logged in');
             }
-            const order = await Orders.create({ drinks });
-            await User.findByIdAndUpdate(
-                context.user._id, 
-                { $push: { orders: order._id } }
-            );
+            // Logic to calculate priceAtOrderTime for each drink in the order based on size
+            const drinksWithPrice = drinks.map(async drink => {
+                const drinkDetails = await Drink.findById(drink.drinkId);
+                return {
+                    drink: drink.drinkId,
+                    quantity: drink.quantity,
+                    size: drink.size,
+                    priceAtOrderTime: drinkDetails.prices[drink.size]
+                };
+            });
+
+            const order = await Orders.create({ drinks: drinksWithPrice, user: context.user._id });
             return order;
         },
         removeDrinkFromOrder: async (parent, { drinkId, orderId }, context) => {
@@ -64,7 +67,7 @@ const resolvers = {
             }
             const order = await Orders.findByIdAndUpdate(
                 orderId, 
-                { $pull: { drinks: drinkId } }, 
+                { $pull: { drinks: { drink: drinkId } } }, 
                 { new: true });
             return order;
         }
