@@ -37,7 +37,7 @@ const typeDefs = gql`
     drinks: [Drink]
     drink(drinkId: ID!): Drink
     sizes: [Size]
-    user(name: String!): User
+    user(name: String): User
     order(_id: ID!): Orders
   }
   
