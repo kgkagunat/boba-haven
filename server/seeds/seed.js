@@ -6,10 +6,11 @@ const userSeeds = require('./userData.json');
 
 db.once('open', async () => {
     try {
+        await Orders.deleteMany({});
         await Drink.deleteMany({});
         await Size.deleteMany({});
         await User.deleteMany({});
-        await Orders.deleteMany({});
+        
 
         await Size.create(sizeSeeds);
         await Drink.create(drinkSeeds);

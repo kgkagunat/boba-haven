@@ -23,10 +23,6 @@ const userSchema = new Schema({
         required: true,
         minlength: 5,
     },
-    birthday: {
-        type: Date,
-        required: true,
-    },
     orders: [
         {
             type: Schema.Types.ObjectId,
