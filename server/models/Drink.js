@@ -20,7 +20,7 @@ const drinkSchema = new Schema({
       type: String,
       required: true,
   },
-});
+}, { toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
 // Virtual fields to get small and large prices for drinks
 drinkSchema.virtual('smallPrice').get(function () {
