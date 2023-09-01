@@ -19,7 +19,6 @@ const typeDefs = gql`
     _id: ID!
     name: String!
     email: String!
-    password: String!
     birthday: String!
     orders: [Orders]
   }
@@ -37,6 +36,7 @@ const typeDefs = gql`
   
   type Query {
     drinks: [Drink]
+    drink(drinkId: ID!): Drink
     sizes: [Size]
     user: User
     user(name: String!): User
@@ -47,6 +47,7 @@ const typeDefs = gql`
     addUser(name: String!, email: String!, password: String!, birthday: String!): Auth
     login(email: String!, password: String!): Auth
     addOrder(drinks: [ID]!): Orders
+    removeDrinkFromOrder(drinkId: ID!): Orders
   }`;
 
 module.exports = typeDefs;
