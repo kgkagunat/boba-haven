@@ -1,7 +1,7 @@
 [
     {
         "name": "John Doe",
-        "email": "Test123@gmail.com",
+        "email": "test123@gmail.com",
         "password": "password01",
         "birthday": "08/31/95"
     }

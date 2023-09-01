@@ -34,6 +34,32 @@ const resolvers = {
         },
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
+            if(!user) {
+                throw new AuthenticationError('Incorrect email');
+            }
+            const correctPw = await user.isCorrectPassword(password);
+            if(!correctPw) {
+                throw new AuthenticationError('Incorrect password');
+            }
+            const token = signToken(user);
+            return { token, user };
+        },
+        addOrder: async (parent, { drinks }, context) => {
+            if(!context.user) {
+                throw new AuthenticationError('Not logged in');
+            }
+            const order = await Orders.create({ drinks });
+        },
+        removeDrinkFromOrder: async (parent, { drinkId }, context) => {
+            if(!context.user) {
+                throw new AuthenticationError('Not logged in');
+            }
+            const order = await Orders.findOneAndUpdate(
+                { _id: context.user._id },
+                { $pull: { drinks: drinkId } },
+                { new: true }
+            );
+            return order;
         }
 
     }
