@@ -131,7 +131,7 @@ const resolvers = {
                 { new: true }).populate('drinks.drink');
             return order;
         },
-        removeDrinkFromOrder: async (parent, { drinkId, orderId }, context) => {
+        removeDrinkFromOrder: async (parent, { orderId, drinkId }, context) => {
             if(!context.user) {
                 throw new AuthenticationError('Not logged in');
             }
