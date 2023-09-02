@@ -55,7 +55,7 @@ type Mutation {
   addDrinkToExistingOrder(orderId: ID!, drinkId: ID!, quantity: Int!, size: String!): Order
   updateDrinkSizeInOrder(orderId: ID!, drinkId: ID!, newSize: String!): Order
   updateDrinkQuantityInOrder(orderId: ID!, drinkId: ID!, newQuantity: Int!): Order
-  removeDrinkFromOrder(drinkId: ID!): Order
+  removeDrinkFromOrder(drinkId: ID!, orderId: ID!): Order
 }
 
 input OrderInputDrink {

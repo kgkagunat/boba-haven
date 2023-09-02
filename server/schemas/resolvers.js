@@ -136,7 +136,7 @@ const resolvers = {
                 throw new AuthenticationError('Not logged in');
             }
             const order = await Orders.findByIdAndUpdate(
-                orderId, 
+                { _id: orderId, 'drinks.drink': drinkId },
                 { $pull: 
                     { drinks: 
                         { drink: drinkId } 
