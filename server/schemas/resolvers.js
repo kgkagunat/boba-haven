@@ -114,9 +114,7 @@ const resolvers = {
                         'drinks.$.priceAtOrderTime': newPrice
                     }
                 },
-                { new: true }
-            );
-        
+                { new: true }).populate('drinks.drink');
             return order;
         },
         updateDrinkQuantityInOrder: async (parent, { orderId, drinkId, newQuantity }, context) => {
@@ -130,8 +128,7 @@ const resolvers = {
                         'drinks.$.quantity': newQuantity
                     }
                 },
-                { new: true }
-            );
+                { new: true }).populate('drinks.drink');
             return order;
         },
         removeDrinkFromOrder: async (parent, { drinkId, orderId }, context) => {
@@ -145,7 +142,7 @@ const resolvers = {
                         { drink: drinkId } 
                     } 
                 }, 
-                { new: true });
+                { new: true }).populate('drinks.drink');
             return order;
         }
     }
