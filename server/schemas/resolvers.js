@@ -49,20 +49,24 @@ const resolvers = {
             }
             
             // Calculate priceAtOrderTime for each drink in the order based on size
-            const drinksWithPrice = drinks.map(async drink => {
+            const drinksWithPrice = await Promise.all (
+                drinks.map(async drink => {
                 const drinkDetails = await Drink.findById(drink.drinkId);
                 return {
                     drink: drink.drinkId,
                     quantity: drink.quantity,
                     size: drink.size,
                     priceAtOrderTime: drinkDetails.prices[drink.size]
-                };
-            });
+                    };
+                })
+            );
 
-            const drinksWithPricePromise = await Promise.all(drinksWithPrice);
+            // 1st) Create the order in the database
+            const order = await Orders.create({ drinks: drinksWithPrice, user: context.user._id });
 
-            const order = await Orders.create({ drinks: drinksWithPricePromise, user: context.user._id });
-            return order;
+            // 2nd) Populate the order with the drink details
+            const createdOrder = await Orders.findById(order._id).populate('drinks.drink');
+            return createdOrder;
         },
         removeDrinkFromOrder: async (parent, { drinkId, orderId }, context) => {
             if(!context.user) {
