@@ -67,6 +67,31 @@ const resolvers = {
             // 2nd) Populate the order with the drink details
             const createdOrder = await Orders.findById(order._id).populate('drinks.drink');
             return createdOrder;
+        },
+        addDrinkToExistingOrder: async (parent, { orderId, drinkId, quantity, size }, context) => {
+            if(!context.user) {
+                throw new AuthenticationError('Not logged in');
+            }
+
+            const drinkDetails = await Drink.findById(drinkId);
+            if (!drinkDetails) {
+                throw new UserInputError('Invalid drink ID');
+            }
+            
+            const newPrice = drinkDetails.prices[size];
+            if(!newPrice) {
+                throw new Error('Size not found for this drink');
+            }
+
+            const order = await Orders.findByIdAndUpdate(
+                orderId, 
+                { $push: 
+                    { drinks: 
+                        { drink: drinkId, quantity: quantity, size: size, priceAtOrderTime: newPrice } 
+                    } 
+                }, 
+                { new: true }).populate('drinks.drink');
+            return order;
         }, 
         updateDrinkSizeInOrder: async (parent, { orderId, drinkId, newSize }, context) => {
             if (!context.user) {
