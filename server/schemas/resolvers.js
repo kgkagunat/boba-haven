@@ -47,7 +47,8 @@ const resolvers = {
             if(!context.user) {
                 throw new AuthenticationError('Not logged in');
             }
-            // Logic to calculate priceAtOrderTime for each drink in the order based on size
+            
+            // Calculate priceAtOrderTime for each drink in the order based on size
             const drinksWithPrice = drinks.map(async drink => {
                 const drinkDetails = await Drink.findById(drink.drinkId);
                 return {
@@ -58,7 +59,9 @@ const resolvers = {
                 };
             });
 
-            const order = await Orders.create({ drinks: drinksWithPrice, user: context.user._id });
+            const drinksWithPricePromise = await Promise.all(drinksWithPrice);
+
+            const order = await Orders.create({ drinks: drinksWithPricePromise, user: context.user._id });
             return order;
         },
         removeDrinkFromOrder: async (parent, { drinkId, orderId }, context) => {
