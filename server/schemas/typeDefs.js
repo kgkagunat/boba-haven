@@ -52,6 +52,8 @@ type Mutation {
   addUser(name: String, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
   addOrder(drinks: [OrderInputDrink!]!): Order
+  updateDrinkSizeInOrder(orderId: ID!, drinkId: ID!, newSize: String!): Order
+  updateDrinkQuantityInOrder(orderId: ID!, drinkId: ID!, newQuantity: Int!): Order
   removeDrinkFromOrder(drinkId: ID!): Order
 }
 

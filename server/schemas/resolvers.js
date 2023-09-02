@@ -67,6 +67,47 @@ const resolvers = {
             // 2nd) Populate the order with the drink details
             const createdOrder = await Orders.findById(order._id).populate('drinks.drink');
             return createdOrder;
+        }, 
+        updateDrinkSizeInOrder: async (parent, { orderId, drinkId, newSize }, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('Not logged in');
+            }
+        
+            // Fetch the drink details, including the new price (based on the new size)
+            const drinkDetails = await Drink.findById(drinkId);
+            const newPrice = drinkDetails.prices[newSize];
+            if (!newPrice) {
+                throw new Error('Size not found for this drink');
+            }
+        
+            // Update the order's drink size and priceAtOrderTime
+            const order = await Orders.findOneAndUpdate(
+                { _id: orderId, 'drinks.drink': drinkId },
+                {
+                    $set: {
+                        'drinks.$.size': newSize,
+                        'drinks.$.priceAtOrderTime': newPrice
+                    }
+                },
+                { new: true }
+            );
+        
+            return order;
+        },
+        updateDrinkQuantityInOrder: async (parent, { orderId, drinkId, newQuantity }, context) => {
+            if(!context.user) {
+                throw new AuthenticationError('Not logged in');
+            }
+            const order = await Orders.findOneAndUpdate(
+                { _id: orderId, 'drinks.drink': drinkId },
+                {
+                    $set: {
+                        'drinks.$.quantity': newQuantity
+                    }
+                },
+                { new: true }
+            );
+            return order;
         },
         removeDrinkFromOrder: async (parent, { drinkId, orderId }, context) => {
             if(!context.user) {
@@ -74,7 +115,11 @@ const resolvers = {
             }
             const order = await Orders.findByIdAndUpdate(
                 orderId, 
-                { $pull: { drinks: { drink: drinkId } } }, 
+                { $pull: 
+                    { drinks: 
+                        { drink: drinkId } 
+                    } 
+                }, 
                 { new: true });
             return order;
         }
