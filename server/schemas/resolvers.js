@@ -48,7 +48,7 @@ const resolvers = {
                 throw new AuthenticationError('Not logged in');
             }
             
-            // Calculate priceAtOrderTime for each drink in the order based on size
+            // Calculate priceAtOrderTime for each drink in the order based on size -- ensure all async operations are complete before continuing
             const drinksWithPrice = await Promise.all (
                 drinks.map(async drink => {
                 const drinkDetails = await Drink.findById(drink.drinkId);
