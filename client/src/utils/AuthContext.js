@@ -1,62 +1,27 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useMutation } from '@apollo/client';  // Import Apollo Client hooks
-import { LOGIN_USER, SIGNUP_USER } from './mutations'; // Import mutations
-import AuthService from './auth';
+import React, { createContext, useState, useContext } from 'react';
 
 const AuthContext = createContext();
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
+const AuthProvider = ({ children }) => {
+    const [authState, setAuthState] = useState({
+        loggedIn: false,
+        user: null,
+        token: null
+    });
 
-export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loginUser, { error: loginError }] = useMutation(LOGIN_USER);
-  const [signupUser, { error: signupError }] = useMutation(SIGNUP_USER);
-  const errors = { loginError, signupError };
+    return (
+        <AuthContext.Provider value={[authState, setAuthState]}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
 
-  useEffect(() => {
-    if (AuthService.loggedIn()) {
-      setCurrentUser(AuthService.getProfile());
+const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider');
     }
-  }, []);
+    return context;
+};
 
-  const login = async (email, password) => {
-    try {
-      const { data } = await loginUser({ variables: { email, password } });
-      AuthService.login(data.login.token);
-      setCurrentUser(AuthService.getProfile());
-    } catch (err) {
-      console.error("Login Error:", err);
-    }
-  };
-
-  const signup = async (username, email, password) => {
-    try {
-      const { data } = await signupUser({ variables: { username, email, password } });
-      AuthService.login(data.signup.token);
-      setCurrentUser(AuthService.getProfile());
-    } catch (err) {
-      console.error("Signup Error:", err);
-    }
-  };
-
-  const logout = () => {
-    AuthService.logout();
-    setCurrentUser(null);
-  };
-
-  const value = {
-    currentUser,
-    login,
-    signup,
-    logout,
-    errors  // Exposing errors
-  };
-
-  return (
-    <AuthContext.Provider value={value}>
-        {children}
-    </AuthContext.Provider>
-  );
-}
+export { AuthProvider, useAuth };
