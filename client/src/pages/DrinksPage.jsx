@@ -1,19 +1,27 @@
 import React from 'react';
-import { useDrinkState } from '../utils/DrinkContext';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GET_DRINK } from '../graphQL/queries';
 import atmosBlue from '../assets/images/atmos_blue_pngwing.png';
-import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 
 const DrinksPage = () => {
-    const { selectedDrink } = useDrinkState();
+    const { id } = useParams();  // Get drink ID from the URL
     const navigate = useNavigate();
+    const { data, loading, error } = useQuery(GET_DRINK, {
+        variables: { drinkId: id }
+    });
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+    const selectedDrink = data ? data.drink : null;
 
     if (!selectedDrink) {
-        navigate.push('/404');
-        return null; // Return null since we're redirecting to another page
+        navigate('/404');
+        return null;  // Return null since we're redirecting to another page
     }
 
     return (
