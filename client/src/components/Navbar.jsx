@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUtensils, faQuestionCircle, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
-
-// Import AuthService
+import { GET_ME } from '../graphQL/queries';
+import { useQuery } from '@apollo/client';
 import AuthService from '../utils/auth';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { data } = useQuery(GET_ME);
+
+  const userName = data?.me?.name || '';
 
   const currentUser = AuthService.loggedIn() ? AuthService.getProfile() : null;
   const logout = () => AuthService.logout();
@@ -42,11 +46,13 @@ function Navbar() {
         {currentUser ? (
           <>
             {/* If logged in, show user info or avatar */}
-            <div>
-              {/* Display any user-specific info like currentUser.email */}
-              Welcome, {currentUser.email}!
+            <Link to="/profile" className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150">
+              {/* This is a placeholder icon for the avatar. You can replace with an actual avatar image */}
+              <FontAwesomeIcon icon={faUser} className="icon-1.4x p-1" />
+            </Link>
+            <div className='font-twinkle text-xl'>
+              Welcome, {userName}!
             </div>
-            <button onClick={logout}>Logout</button>
           </>
         ) : (
           <Link to="/login" className="hidden md:block text-black hover:text-pink-400">
