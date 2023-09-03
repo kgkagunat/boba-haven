@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Drink, Size, Orders, User } = require('../models');
+const { Drink, Orders, User } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -21,6 +21,12 @@ const resolvers = {
 
             throw new AuthenticationError('Not logged in');
         },
+        me: async (parent, args, context) => {
+            if (context.user) {
+              return Profile.findOne({ _id: context.user._id });
+            }
+            throw new AuthenticationError('You need to be logged in!');
+          },
         order: async (parent, { _id }) => {
             return await Orders.findOne({ _id }).populate('drinks.drink');
         },
@@ -90,7 +96,7 @@ const resolvers = {
                         { drink: drinkId, quantity: quantity, size: size, priceAtOrderTime: newPrice } 
                     } 
                 }, 
-                { new: true }).populate('drinks.drink');
+                { new: true, runValidators: true }).populate('drinks.drink');
             return order;
         }, 
         updateDrinkSizeInOrder: async (parent, { orderId, drinkId, newSize }, context) => {
@@ -114,7 +120,7 @@ const resolvers = {
                         'drinks.$.priceAtOrderTime': newPrice
                     }
                 },
-                { new: true }).populate('drinks.drink');
+                { new: true, runValidators: true }).populate('drinks.drink');
             return order;
         },
         updateDrinkQuantityInOrder: async (parent, { orderId, drinkId, newQuantity }, context) => {
@@ -128,7 +134,7 @@ const resolvers = {
                         'drinks.$.quantity': newQuantity
                     }
                 },
-                { new: true }).populate('drinks.drink');
+                { new: true, runValidators: true }).populate('drinks.drink');
             return order;
         },
         removeDrinkFromOrder: async (parent, { orderId, drinkId }, context) => {
@@ -142,7 +148,7 @@ const resolvers = {
                         { drink: drinkId } 
                     } 
                 }, 
-                { new: true }).populate('drinks.drink');
+                { new: true, runValidators: true }).populate('drinks.drink');
             return order;
         }
     }

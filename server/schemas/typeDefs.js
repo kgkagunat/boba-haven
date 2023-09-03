@@ -44,12 +44,13 @@ type Auth {
 type Query {
   drinks: [Drink]
   drink(drinkId: ID!): Drink
-  user(name: String): User
+  user(userId: ID!): User
   order(_id: ID!): Order
+  me: User
 }
 
 type Mutation {
-  addUser(name: String, email: String!, password: String!): Auth
+  addUser(name: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
   addOrder(drinks: [OrderInputDrink!]!): Order
   addDrinkToExistingOrder(orderId: ID!, drinkId: ID!, quantity: Int!, size: String!): Order
