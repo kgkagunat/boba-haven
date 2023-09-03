@@ -10,23 +10,18 @@ const resolvers = {
         drink: async (parent, { drinkId }) => {
             return Drink.findOne({ _id: drinkId });
         },
-        user: async (parent, args, context) => {
-            if(context.user) {
+        user: async (parent, { userId }, context) => {
+            if(context.user && context.user._id === userId) {
                 return context.user;
             }
-            
-            if(args.name) {
-                return await User.findOne({ name: args.name });
-            }
-
-            throw new AuthenticationError('Not logged in');
+            return await User.findOne({ _id: userId });
         },
         me: async (parent, args, context) => {
             if (context.user) {
-              return Profile.findOne({ _id: context.user._id });
+              return User.findOne({ _id: context.user._id });
             }
             throw new AuthenticationError('You need to be logged in!');
-          },
+        },
         order: async (parent, { _id }) => {
             return await Orders.findOne({ _id }).populate('drinks.drink');
         },
