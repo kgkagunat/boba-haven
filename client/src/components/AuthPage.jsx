@@ -7,20 +7,14 @@ import blueFrame from '../assets/images/blue_frame1_pngwing.png';
 // Import auth
 import { useAuth } from '../utils/AuthContext';
 
-// // Import apollo, mutations
-// import { useMutation } from '@apollo/client';
-// import { LOGIN_USER, SIGNUP_USER } from '../utils/mutations';
-
-
-
 function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottomParagraphText, bottomLinkText }) {
 
   // Declare and initialize state variables
   const navigate = useNavigate();
-  const { login, signup, errors } = useAuth(); // Destructure the required functions and errors from the context
+  const { login, signup, errors } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');  // only needed for signup
+  const [username, setUsername] = useState('');
 
   const isLoginPage = pageTitle === 'Log In';
 
@@ -29,9 +23,9 @@ function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottom
 
     try {
         if (isLoginPage) {
-            await login(email, password);  // Use the login function from the AuthContext
+            await login(email, password); 
         } else {
-            await signup(username, email, password);  // Use the signup function from the AuthContext
+            await signup(username, email, password);
         }
         navigate('/profile');  // Navigate after successful submission
     } catch (err) {
