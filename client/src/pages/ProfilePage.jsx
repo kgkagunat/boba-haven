@@ -162,6 +162,10 @@ function ProfilePage() {
                       <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user.email}</dd>
                     </div>
 
+                    <div className='orders'>
+                      
+                    </div>
+
                   </dl>
                 </div>
               </div>
