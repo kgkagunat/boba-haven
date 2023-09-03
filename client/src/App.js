@@ -1,10 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import MainContent from './pages/MainContent';
-import { DrinkProvider } from './utils/DrinkContext';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { AuthProvider } from './utils/AuthContext';
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_URI,
@@ -29,13 +27,9 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <AuthProvider>
-        <Router>
-          <DrinkProvider>
-            <MainContent />
-          </DrinkProvider>
-        </Router>
-      </AuthProvider>
+      <Router>  
+          <MainContent />
+      </Router>
     </ApolloProvider>
   );
 }
