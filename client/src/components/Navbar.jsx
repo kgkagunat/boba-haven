@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faUtensils, faQuestionCircle, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 
-// Import auth context
-import { useAuth } from '../utils/AuthContext';
+// Import AuthService
+import AuthService from '../utils/auth';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { currentUser, logout } = useAuth();
+
+  const currentUser = AuthService.loggedIn() ? AuthService.getProfile() : null;
+  const logout = () => AuthService.logout();
 
   return (
     <nav className="bg-white bg-opacity-80 text-black sticky top-0 z-50 p-4 shadow-lg">
