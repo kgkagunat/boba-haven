@@ -1,32 +1,37 @@
-import React from 'react'
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import React, { useEffect, useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../graphQL/queries';
+import AuthService from '../utils/auth';
+import { Fragment } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import goldFrame from '../assets/images/gold_frame_pngwing.png'
-
-
-
-// const `user` is pure "placeholder"
-const user = {
-  name: 'Jose Seto',
-  email: 'jose_seto@example.com',
-  imageUrl: '',
-}
-
-// const `userNavigation` is pure "placeholder"
-const userNavigation = [
-  { name: 'Order History', href: '/orders' },
-  { name: 'Back to main menu', href: '/'},
-  { name: 'Sign out', href: '/' },
-]
+import goldFrame from '../assets/images/gold_frame_pngwing.png';
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 function ProfilePage() {
+  const { loading, error, data } = useQuery(GET_ME);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (data && data.me) {
+      setUser(data.me);
+    }
+  }, [data]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  const userNavigation = [
+    { name: 'Order History', href: '/orders' },
+    { name: 'Back to main menu', href: '/' },
+    { name: 'Sign out', href: '/', action: AuthService.logout }, // Add logout action here
+  ];
+  
   return (
     <>
       <div className="min-h-full flex flex-col">
@@ -154,12 +159,12 @@ function ProfilePage() {
 
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                       <dt className="font-gamja text-3xl leading-6 text-gray-900">Full name</dt>
-                      <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user.name}</dd>
+                      <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user && user.name}</dd>
                     </div>
 
                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                       <dt className="font-gamja text-3xl leading-6 text-gray-900">Email address</dt>
-                      <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user.email}</dd>
+                      <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user && user.email}</dd>
                     </div>
 
                   </dl>
