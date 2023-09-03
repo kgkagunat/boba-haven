@@ -19,7 +19,20 @@ function ProfilePage() {
     _id: '',
     name: '',
     email: '',
-    orders: []
+    orders: [{
+      _id: '',
+      purchaseDate: '',
+      drinks: [{
+        drink: {
+          _id: '',
+          name: '',
+          image: ''
+        },
+        quantity: 0,
+        size: '',
+        priceAtOrderTime: 0
+      }]
+    }],
   });
 
   // console.log(user);
