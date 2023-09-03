@@ -9,10 +9,15 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 const DrinksPage = () => {
     const { id } = useParams();  // Get drink ID from the URL
+
+    // console.log(id);
+
     const navigate = useNavigate();
     const { data, loading, error } = useQuery(GET_DRINK, {
         variables: { drinkId: id }
     });
+
+    // console.log(data, loading, error);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
