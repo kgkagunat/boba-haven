@@ -13,23 +13,23 @@ class AuthService {
   isTokenExpired(token) {
     const decoded = decode(token);
     if (decoded.exp < Date.now() / 1000) {
-      localStorage.removeItem('id_token');
+      localStorage.removeItem('token');
       return true;
     }
     return false;
   }
 
   getToken() {
-    return localStorage.getItem('id_token');
+    return localStorage.getItem('token');
   }
 
   login(idToken) {
-    localStorage.setItem('id_token', idToken);
+    localStorage.setItem('token', idToken);
     window.location.assign('/');
   }
 
   logout() {
-    localStorage.removeItem('id_token');
+    localStorage.removeItem('token');
     window.location.reload();
   }
 }
