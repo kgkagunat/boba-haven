@@ -2,14 +2,29 @@ const { AuthenticationError } = require('apollo-server-express');
 const { Drink, Orders, User } = require('../models');
 const { signToken } = require('../utils/auth');
 
+const imageBaseUrl = '/images/Drinks_pics';
+
 const resolvers = {
     Query: {
         drinks: async () => {
-            return await Drink.find({});
+            const drinks = await Drink.find({});
+            const drinksWithAbsoluteImageUrls = drinks.map(drink => ({
+                ...drink._doc,
+                image: `${imageBaseUrl}/${drink.image}`
+            }));
+            return drinksWithAbsoluteImageUrls;
         },
         drink: async (parent, { drinkId }) => {
-            return Drink.findOne({ _id: drinkId });
-        },
+            const drink = await Drink.findOne({ _id: drinkId });
+            if (drink) {
+              return {
+                ...drink._doc,
+                image: `${imageBaseUrl}/${drink.image}`
+              };
+            } else {
+              throw new Error('Drink not found');
+            }
+          },
         user: async (parent, { userId }, context) => {
             if(context.user && context.user._id === userId) {
                 return context.user;
