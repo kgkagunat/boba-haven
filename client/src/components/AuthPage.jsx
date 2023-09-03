@@ -38,7 +38,7 @@ function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottom
       console.error('Error during authentication:', err);
     }
   };
- 
+      
   return (
     <>
       <div className={`flex min-h-screen justify-center items-center px-6 py-12 lg:px-8 ${bgColorGradient} z-0`}>
