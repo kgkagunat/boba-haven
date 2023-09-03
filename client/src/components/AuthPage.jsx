@@ -3,36 +3,42 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import blueFrame from '../assets/images/blue_frame1_pngwing.png';
-
-// Import auth
-import { useAuth } from '../utils/AuthContext';
+import { useMutation } from '@apollo/client';
+import { ADD_USER, LOGIN_USER } from '../graphQL/mutations';
 
 function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottomParagraphText, bottomLinkText }) {
 
   // Declare and initialize state variables
-  const navigate = useNavigate();
-  const { login, signup, errors } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+  
   const isLoginPage = pageTitle === 'Log In';
+  const [addUser] = useMutation(ADD_USER);
+  const [loginUser] = useMutation(LOGIN_USER);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setError(null);  // Reset the error before starting a new action
 
     try {
-        if (isLoginPage) {
-            await login(email, password); 
-        } else {
-            await signup(username, email, password);
-        }
-        navigate('/profile');  // Navigate after successful submission
+      if (isLoginPage) {
+        const { data } = await loginUser({ variables: { loginEmail: email, loginPassword: password } });
+        localStorage.setItem('token', data.login.token);
+      } else {
+        const { data } = await addUser({ variables: { email, password, name: username } });
+        localStorage.setItem('token', data.addUser.token);
+      }
+      navigate('/profile');
     } catch (err) {
-        console.error('Error during authentication:', err);
+      setError(err.message);  // Set the error state
+      console.error('Error during authentication:', err);
     }
   };
-
+ 
   return (
     <>
       <div className={`flex min-h-screen justify-center items-center px-6 py-12 lg:px-8 ${bgColorGradient} z-0`}>
@@ -138,9 +144,9 @@ function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottom
           </div>
           
           {/* Error Message */}
-          {(errors.loginError || errors.signupError) && (
+          {error && (
             <div className="mt-2 text-red-500 text-sm">
-                {isLoginPage ? errors.loginError?.message : errors.signupError?.message}
+                {error}
             </div>
           )}
         </div>
