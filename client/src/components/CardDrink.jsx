@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { CalendarIcon, IdentificationIcon } from '@heroicons/react/24/outline'
+import { CalendarIcon, IdentificationIcon, SpeakerWaveIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom';
 
 export default function Example() {
   const [showModal, setShowModal] = useState(false)
@@ -67,6 +68,21 @@ export default function Example() {
               <dd className="font-gamja text-xl mt-2 leading-7 text-black">
                 Now introducing our "Buddy Brigade Cards"! With every purchase of a drink, earn boba stars that take you closer to free drinks, secret recipes, and merchandise.
               </dd>
+            </div>
+            <div className="flex flex-col items-start">
+              <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                <SpeakerWaveIcon className="h-6 w-6 text-black" aria-hidden="true" />
+              </div>
+              <dt className="font-twinkle text-2xl mt-4 font-semibold text-black">Audio Visualizer!</dt>
+              <dd className="font-gamja text-xl mt-2 leading-7 text-black">
+                Try out our Audio Visualizer! Upload your favorite song and watch the magic unfold!
+              </dd>
+              {/* Adding the visualizer link button below */}
+              <div className="mt-4">
+                <Link to="/audioVisualizer" className="font-gamja text-xl inline-flex justify-center w-full rounded-md border border-transparent shadow-md px-4 py-1 bg-blue-600 font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  Go to Visualizer
+                </Link>
+              </div>
             </div>
           </dl>
         </div>
