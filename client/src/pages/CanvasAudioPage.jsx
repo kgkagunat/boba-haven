@@ -34,8 +34,10 @@ function CanvasAudioPage() {
     let source = null;
     let analyser = null;
     let dataArray = null;
+    let isMounted = true;
 
     useEffect(() => {
+        isMounted = true;
         function handleFileChange() {
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -49,6 +51,7 @@ function CanvasAudioPage() {
         fileInputRef.current.addEventListener('change', handleFileChange);
 
         return () => {
+            isMounted = false;  // Set the flag to false when unmounting
             // Cleanup event listener on component unmount
             if (fileInputRef.current) {
                 fileInputRef.current.removeEventListener('change', handleFileChange);
@@ -130,6 +133,8 @@ function CanvasAudioPage() {
     }
     
     function animate() {
+        if (!isMounted) return;
+
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
 
@@ -143,7 +148,7 @@ function CanvasAudioPage() {
         const spaceBetweenBars = 2;
     
         for (let i = 0; i < dataArray.length; i++) {
-            const barHeight = dataArray[i] * 2.58;
+            const barHeight = dataArray[i] * 2.10;
             const [r, g, b] = hsvToRgb(i / dataArray.length, 1, 1);
             ctx.fillStyle = `rgb(${r},${g},${b})`;
             let x = centerX + radius * Math.cos((spaceBetweenBars * i) * (Math.PI / 180));
