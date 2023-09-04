@@ -19,6 +19,7 @@ import DrinksPage from './DrinksPage';
 import CartPage from './CartPage';
 import CheckoutPage from './CheckoutPage';
 import MissingPage from './MissingPage';
+import CanvasAudioPage from './CanvasAudioPage'; // Canvas API + Audio API
 
 function MainContent() {
   const location = useLocation();
@@ -30,7 +31,8 @@ function MainContent() {
     "/profile",
     "/404",
     "/drinks",
-    "/checkout"
+    "/checkout",
+    "/audioVisualizer"
   ].some(path => location.pathname.startsWith(path));
   
   const showFooter = ![
@@ -41,7 +43,8 @@ function MainContent() {
     "/profile",
     "/404",
     "/drinks",
-    "/checkout"
+    "/checkout",
+    "/audioVisualizer"
   ].some(path => location.pathname.startsWith(path));
 
   return (
@@ -63,6 +66,7 @@ function MainContent() {
         <Route path='/cart' element={<CartPage />} />
         <Route path='/checkout' element={<CheckoutPage />} />
         <Route path='/404' element={<MissingPage />} />
+        <Route path="/audioVisualizer" element={<CanvasAudioPage />} /> {/* New route added */}
         {/* Add other routes here */}
       </Routes>
       {showFooter && <Footer />}
