@@ -14,16 +14,13 @@ function Cart() {
     drinkId: '',
     newQuantity: 1,
   };
+  
   const [state, setState] = useState(initialState);
 
   const { data } = useQuery(GET_ME);
   const [removeDrink] = useMutation(REMOVE_DRINK_FROM_ORDER);
   const [updateDrinkQuantity] = useMutation(UPDATE_DRINK_QUANTITY_IN_ORDER);
   const [updateDrinkSize] = useMutation(UPDATE_DRINK_SIZE_IN_ORDER);
-
-  console.log("Current Order ID:", state.currentOrderId);
-  console.log("Drink ID:", state.drinkId);
-  console.log("New Quantity:", state.newQuantity);
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart'));
