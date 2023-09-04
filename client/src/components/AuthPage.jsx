@@ -178,8 +178,8 @@ function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottom
           
           {/* Error Message */}
           {error && (
-            <div className="mt-2 text-red-500 text-sm">
-                {error}
+            <div className="font-gamja flex items-center justify-center font-bold text-red-600 text-2xl shadow-lg bg-zinc-200 bg-opacity-20 p-2 rounded-3xl">
+                Uh Oh!? {error}
             </div>
           )}
         </div>
