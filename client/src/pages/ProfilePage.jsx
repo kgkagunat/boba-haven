@@ -46,10 +46,21 @@ function ProfilePage() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
+  const handleNavigation = (e, item) => {
+    e.preventDefault();
+    if (item.name === 'Sign out') {
+      AuthService.logout();
+      localStorage.removeItem('cart');
+      window.location.href = '/'; // Redirect to the home page after logging out
+    } else if (item.name === 'Back to main menu') {
+      window.location.href = '/'; // Replace with actual main menu route
+    }
+  };
+  
   const userNavigation = [
     { name: 'Order History', href: '/orders' },
-    { name: 'Back to main menu', href: '/' },
-    { name: 'Sign out', href: '/', action: AuthService.logout }, // Add logout action here
+    { name: 'Back to main menu', href: '/' }, // Replace with actual main menu route
+    { name: 'Sign out' },
   ];
   
   return (
@@ -90,41 +101,21 @@ function ProfilePage() {
                         >
                           <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           {userNavigation.map((item) => (
-                            <Menu.Item key={item.name}>
-                              {({ active }) => {
-                                if (item.name === 'Sign out') {
-                                  return (
-                                    <a
-                                      href={item.href}
-                                      onClick={(e) => {
-                                        e.preventDefault(); 
-                                        item.action(); 
-                                        window.location.href = item.href; // Redirect to the home page after logging out
-                                      }}
-                                      className={classNames(
-                                        active ? 'bg-gray-100' : '',
-                                        'block px-4 py-2 text-sm text-gray-700'
-                                      )}
-                                    >
-                                      {item.name}
-                                    </a>
-                                  );
-                                } else {
-                                  return (
-                                    <a
-                                      href={item.href}
-                                      className={classNames(
-                                        active ? 'bg-gray-100' : '',
-                                        'block px-4 py-2 text-sm text-gray-700'
-                                      )}
-                                    >
-                                      {item.name}
-                                    </a>
-                                  );
-                                }
-                              }}
-                            </Menu.Item>
-                          ))}
+                              <Menu.Item key={item.name}>
+                                {({ active }) => (
+                                  <a
+                                    href={item.href || '#'}
+                                    onClick={(e) => handleNavigation(e, item)}
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                  >
+                                    {item.name}
+                                  </a>
+                                )}
+                              </Menu.Item>
+                            ))}
                           </Menu.Items>
                         </Transition>
                       </Menu>
