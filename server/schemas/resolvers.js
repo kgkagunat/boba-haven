@@ -33,10 +33,10 @@ const resolvers = {
         },
         me: async (parent, args, context) => {
             if (context.user) {
-              return User.findOne({ _id: context.user._id });
+               return User.findOne({ _id: context.user._id }).populate('orders');
             }
             throw new AuthenticationError('You need to be logged in!');
-        },
+         },
         order: async (parent, { _id }) => {
             return await Orders.findOne({ _id }).populate('drinks.drink');
         },
