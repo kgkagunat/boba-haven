@@ -5,31 +5,43 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 
+// Image Imports
+import daniImage from '../assets/images/About_pics/panda_pngwing.png';
+import priyankaImage from '../assets/images/About_pics/cat_smile_pngwing.png';
+import kamauliolaImage from '../assets/images/About_pics/koala_avatar_pngwing.png';
+import karinaImage from '../assets/images/About_pics/kawaii_kitty_pngwing.png';
+import joseImage from '../assets/images/About_pics/pig_illustration_pngwing.png';
+
 const people = [
   {
     name: 'Dani Chankhour',
     role: 'CEO',
-    imageUrl: '',
+    imageUrl: daniImage,
+    description: "Meet Dani Chankhour, the visionary behind Boba Haven's sweet success! With an entrepreneurial spirit as vibrant as the boba pearls, Dani embarked on a journey to create a haven where every sip is a delightful escape"
   },
   {
     name: 'Priyanka Mary Christine',
     role: 'CEO',
-    imageUrl: '',
+    imageUrl: priyankaImage,
+    description: "Priyanka Mary Christine, the other half of our dynamic CEO duo, brings her endless energy and a sprinkle of stardust to Boba Haven. With her creative flair, she turns each boba cup into a work of art."
   },
   {
     name: 'Kamauliola Agunat',
     role: 'Boba-Viruoso',
-    imageUrl: '',
+    imageUrl: kamauliolaImage,
+    description: "Kamauliola Agunat, our Boba-Virtuoso, dances through the kitchen like a maestro composing symphonies of flavor. Mixing, shaking, and stirring, Kamauliola turns simple tea into a masterpiece of joy."
   },
   {
     name: 'Karina Valencia',
     role: 'Boba-Artisan',
-    imageUrl: '',
+    imageUrl: karinaImage,
+    description: "Karina Valencia, the Boba-Artisan, weaves magic with every tapioca pearl and tea infusion. Her hands craft boba drinks that are not only delicious but also beautiful enough to belong in an art gallery."
   },
   {
     name: 'Jose Seto',
     role: 'Boba-Curator',
-    imageUrl: '',
+    imageUrl: joseImage,
+    description: "Jose Seto, the Boba-Curator, approaches each boba creation with the precision of a sommelier. With an uncanny knack for pairing flavors, Jose transforms sips into delightful adventures for your taste buds."
   },
   // More people added here...
 ];
@@ -66,8 +78,9 @@ function About() {
                 src={person.imageUrl}
                 alt={`Image of ${person.name}`}
               />
-              <h3 className="font-gamja text-2xl mt-4 leading-6 text-white">{person.name}</h3>
-              <p className="font-gamja text-lg leading-5 text-gray-400">{person.role}</p>
+              <h3 className="font-gamja text-3xl font-bold m-2 leading-6 text-white">{person.name}</h3>
+              <p className="font-gamja text-2xl font-bold mt-2 leading-5 text-gray-400">{person.role}</p>
+              <p className="font-gamja text-xl mt-2 leading-5 text-gray-400">{person.description}</p>
             </li>
           ))}
         </ul>
