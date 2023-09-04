@@ -1,10 +1,12 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_DRINK } from '../graphQL/queries';
 import atmosBlue from '../assets/images/atmos_blue_pngwing.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
+
+
 
 
 const DrinksPage = () => {
@@ -19,11 +21,30 @@ const DrinksPage = () => {
 
     // console.log(data, loading, error);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error: {error.message}</p>;
+
+
+
+    //this shoudl be on the add to cart function
+    // var currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+    // var currentDrink = {
+    //     name: data?.drink.name,
+    //     price: data?.drink.price,
+    //     size: drinkSize,
+    // }
+    // currentCart.push(currentDrink);
+    // localStorage.setItem('cart', JSON.stringify(currentCart));
 
     const selectedDrink = data ? data.drink : null;
 
+    const [drinkSize, setDrinkSize] = useState(selectedDrink?.prices.small || {});
+    
+    const sizeChange = (e) => {
+        setDrinkSize(e.target.textContent);
+         console.log(drinkSize);
+    }
+   
     if (!selectedDrink) {
         navigate('/404');
         return null;  // Return null since we're redirecting to another page
@@ -52,6 +73,13 @@ const DrinksPage = () => {
 
                         <div className="mt-6 flex items-center">
                             <p className="font-gamja text-xl ml-2 text-gray-500">Calories</p>
+                        </div >
+
+                        <div className="mt-6 flex items-center">
+                            
+                            <button type="button" onClick={(e) => {sizeChange(e)}} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">{selectedDrink?.prices.small}</button>
+                            <button type="button" onClick={(e) => {sizeChange(e)}} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">{selectedDrink?.prices.medium}</button>
+                            <button type="button" onClick={(e) => {sizeChange(e)}} class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">{selectedDrink?.prices.large}</button>
                         </div>
                     </section>
                 </div>
