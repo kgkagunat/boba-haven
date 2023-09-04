@@ -58,7 +58,7 @@ function ProfilePage() {
   };
   
   const userNavigation = [
-    { name: 'Order History', href: '/orders' },
+    { name: 'Order History', href: '/404' },
     { name: 'Back to main menu', href: '/' }, // Replace with actual main menu route
     { name: 'Sign out' },
   ];
@@ -141,7 +141,7 @@ function ProfilePage() {
                 <div className="border-t border-gray-700 pb-3 pt-4">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user?.imageUrl} alt="" />
+                      <FontAwesomeIcon icon={faUser} className="text-white" />
                     </div>
                     <div className="ml-3">
                       <div className="text-base font-medium leading-none text-white">{user.name}</div>
