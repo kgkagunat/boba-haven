@@ -148,27 +148,15 @@ function Cart() {
                     <div>
                       <div className="flex justify-between">
                         <h4 className="text-sm">
-                          <a href={drink.href} className="font-medium text-gray-700 hover:text-gray-800">
+                          <a href={drink.href} className="font-gamja text-3xl text-gray-700 hover:text-gray-800">
                             {drink.name}
                           </a>
                         </h4>
-                        <p className="ml-4 text-sm font-medium text-gray-900">${drink.price}</p>
+                        <p className="ml-4 font-gamja text-3xl text-gray-900">${drink.price}</p>
                       </div>
-                      <p className="mt-1 text-sm text-gray-500">Size: 
-                      <select value={drink.size} onChange={(e) => handleDrinkSizeChange(drink.id, e)}>
-                        <option value="small">Small</option>
-                        <option value="medium">Medium</option>
-                        <option value="large">Large</option>
-                      </select>
+                      <p className="mt-3 font-gamja text-2xl text-gray-500">Size: {drink.size}
                     </p>
-                    <p className="text-sm text-gray-500">Quantity: 
-                      <input 
-                        type="number" 
-                        min="1" 
-                        value={drink.quantity} 
-                        onChange={(e) => handleDrinkQuantityChange(drink.id, e)}
-                        className="ml-2 w-16"
-                      />
+                    <p className="mt-3 font-gamja text-2xl text-gray-500">Quantity: {drink.quantity}
                     </p>
                     </div>
 
@@ -193,9 +181,9 @@ function Cart() {
 
             <div>
               <dl className="space-y-4">
-                <div className="flex items-center justify-between font-gamja text-2xl">
-                  <dt className="text-gray-900">Subtotal</dt>
-                  <dd className="ml-4 text-gray-900">${subtotal}</dd>
+                <div className="flex items-center justify-between font-gamja">
+                  <dt className="text-4xl text-gray-900">Subtotal</dt>
+                  <dd className="text-4xl ml-4 text-gray-900">${subtotal}</dd>
                 </div>
               </dl>
               <p className="mt-1 font-gamja text-xl text-gray-500">Shipping and taxes will be calculated at checkout.</p>
