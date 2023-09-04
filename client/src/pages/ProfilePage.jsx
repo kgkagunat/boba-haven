@@ -208,6 +208,44 @@ function ProfilePage() {
                       <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user && user.email}</dd>
                     </div>
 
+                    <div className='orderHistory'>
+                      <div>
+                        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                          <dt className="font-gamja text-3xl leading-6 text-gray-900">Purchase Date</dt>
+                          <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">09/03/23 {user && user.orders.purchaseDate}</dd>
+                        </div>
+
+                        <div className='drinks grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+
+                          <div className="card max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow flex flex-col">
+                              
+                              <div className='flex flex-row items-center justify-around'>
+                                <img src={user && user.orders.image} alt={user && user.orders.name} className='h-24 w-24 rounded-md object-cover object-center'></img>
+                                <p className="font-gamja text-4xl leading-6 text-gray-900 text-center w-[200px]">Black Sesame Milk Tea {user && user.orders.name}</p>
+                              </div>
+
+                              <div className='flex flex-row justify-around pt-4'>
+
+                                <div className='flex'>
+                                  <dt className="font-gamja text-2xl leading-6 text-gray-900">Quantity: </dt>
+                                  <dd className="font-gamja text-xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0 px-2">1 {user && user.orders.quantity}</dd>
+                                </div>
+
+                                <div className='flex'>
+                                  <dt className="font-gamja text-2xl leading-6 text-gray-900">Size:</dt>
+                                  <dd className="font-gamja text-xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0 px-2">small {user && user.orders.size}</dd>
+                                </div>
+                                
+                              </div>
+                              
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
                   </dl>
                 </div>
               </div>
