@@ -17,7 +17,6 @@ import SignUpPage from './SignUpPage';
 import ProfilePage from './ProfilePage';
 import DrinksPage from './DrinksPage';
 import CartPage from './CartPage';
-import CheckoutPage from './CheckoutPage';
 import MissingPage from './MissingPage';
 import CanvasAudioPage from './CanvasAudioPage'; // Canvas API + Audio API
 
@@ -31,7 +30,6 @@ function MainContent() {
     "/profile",
     "/404",
     "/drinks",
-    "/checkout",
     "/audioVisualizer"
   ].some(path => location.pathname.startsWith(path));
   
@@ -43,7 +41,6 @@ function MainContent() {
     "/profile",
     "/404",
     "/drinks",
-    "/checkout",
     "/audioVisualizer"
   ].some(path => location.pathname.startsWith(path));
 
@@ -64,7 +61,6 @@ function MainContent() {
         <Route path='/profile' element={<ProfilePage />} />
         <Route path="/drinks/:id" element={<DrinksPage />} />
         <Route path='/cart' element={<CartPage />} />
-        <Route path='/checkout' element={<CheckoutPage />} />
         <Route path='/404' element={<MissingPage />} />
         <Route path="/audioVisualizer" element={<CanvasAudioPage />} /> {/* New route added */}
         {/* Add other routes here */}
