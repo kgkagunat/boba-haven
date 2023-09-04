@@ -64,7 +64,7 @@ function Footer() {
     return (
       <footer className="bg-gradient-to-b from-white to-purple-200">
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
-        <div className="flex flex-col items-center sm:flex-row sm:justify-center sm:space-x-12" aria-label="Footer">
+        <div className="flex flex-col items-center sm:flex-row sm:justify-center sm:space-x-12 space-y-6 sm:space-y-0" aria-label="Footer">
           {navigation.main.map((item) => (
             <Link
               key={item.name}
