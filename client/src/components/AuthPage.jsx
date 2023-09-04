@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import blueFrame from '../assets/images/blue_frame1_pngwing.png';
 import { useMutation } from '@apollo/client';
-import { ADD_USER, LOGIN_USER } from '../graphQL/mutations';
+import { ADD_USER, LOGIN_USER, ADD_ORDER } from '../graphQL/mutations';
 
 function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottomParagraphText, bottomLinkText }) {
 
@@ -19,25 +19,58 @@ function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottom
   const isLoginPage = pageTitle === 'Log In';
   const [addUser] = useMutation(ADD_USER);
   const [loginUser] = useMutation(LOGIN_USER);
+  const [addOrder] = useMutation(ADD_ORDER); // Add this line
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    setError(null);  // Reset the error before starting a new action
-
+    setError(null);
+  
     try {
       if (isLoginPage) {
         const { data } = await loginUser({ variables: { loginEmail: email, loginPassword: password } });
+        const userId = data.login.user._id;
+        localStorage.setItem('userId', userId);
         localStorage.setItem('token', data.login.token);
+
+        // Fetch and store cart items here
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        console.log('Cart Items:', cartItems); // Add this log
+        const { data: orderData } = await addOrder({ variables: { drinks: cartItems } });
+
+        // Handle the response and navigation accordingly
+        console.log('Order Data:', orderData); // Add this log
+        if (orderData && orderData.addOrder) {
+          localStorage.removeItem('cart');
+          console.log('Cart cleared.'); // Add this log
+          navigate('/profile');
+        } else {
+          setError('Error adding order');
+        }
       } else {
         const { data } = await addUser({ variables: { email, password, name: username } });
+        const userId = data.addUser.user._id; // Retrieve the user's _id from the signup response
+        localStorage.setItem('userId', userId); // Store the userId in local storage
         localStorage.setItem('token', data.addUser.token);
+  
+        // After signup, add items to the cart
+      const cartDrinks = []; // Prepare the cart items (drinks) here
+
+      const { data: orderData } = await addOrder({ variables: { drinks: cartDrinks } });
+
+      // Handle the response and navigation accordingly
+      if (orderData && orderData.addOrder) {
+        localStorage.removeItem('cart');
+        navigate('/profile');
+      } else {
+        console.error('Error adding order:', orderData);
+        setError('Error adding order');
       }
-      navigate('/profile');
-    } catch (err) {
-      setError(err.message);  // Set the error state
-      console.error('Error during authentication:', err);
     }
-  };
+  } catch (err) {
+    setError(err.message);
+    console.error('Error during authentication:', err);
+  }
+};
       
   return (
     <>
