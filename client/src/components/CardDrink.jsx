@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CalendarIcon, IdentificationIcon } from '@heroicons/react/24/outline'
 
 export default function Example() {
+  const [showModal, setShowModal] = useState(false)
+
+  const handleSubscribe = (event) => {
+    event.preventDefault()
+    setShowModal(true)
+  };
+
   return (
     <div className="relative isolate overflow-hidden bg-radial-gradient-white-pink py-16 sm:py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -27,6 +34,7 @@ export default function Example() {
               />
               <button
                 type="submit"
+                onClick={handleSubscribe}
                 className="font-gamja text-xl flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 Subscribe
@@ -64,6 +72,43 @@ export default function Example() {
           }}
         />
       </div>
+      {/* Modal */}
+      {
+        showModal && (
+          <div className="fixed z-max inset-0 overflow-y-auto">
+            <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+              </div>
+              <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+              <div className="inline-block align-bottom bg-gradient-to-br from-white to-pink-400 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div>
+                  <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <svg className="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fillRule="evenodd" d="M6.293 9.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="mt-3 text-center sm:mt-5">
+                    <h3 className="font-twinkle font-bold text-2xl leading-6 text-black m-3">
+                      Thank you for signing up!
+                    </h3>
+                    <div className="mt-2">
+                      <p className="font-gamja text-2xl text-blue-600">
+                        We're excited to have you on board with Boba Haven's Magical Monthly Brigade!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-5 sm:mt-6">
+                  <button onClick={() => setShowModal(false)} type="button" className="font-gamja text-2xl inline-flex justify-center w-full rounded-md border border-transparent shadow-md px-4 py-1 bg-red-600 font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ">
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      }
     </div>
   )
 }
