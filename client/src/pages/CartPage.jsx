@@ -7,12 +7,23 @@ import { GET_ME } from '../graphQL/queries';
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
-  const [currentOrderId, setCurrentOrderId] = useState(null);
+
+  // Initialize state
+  const initialState = {
+    currentOrderId: '',
+    drinkId: '',
+    newQuantity: 1,
+  };
+  const [state, setState] = useState(initialState);
 
   const { data } = useQuery(GET_ME);
   const [removeDrink] = useMutation(REMOVE_DRINK_FROM_ORDER);
   const [updateDrinkQuantity] = useMutation(UPDATE_DRINK_QUANTITY_IN_ORDER);
   const [updateDrinkSize] = useMutation(UPDATE_DRINK_SIZE_IN_ORDER);
+
+  console.log("Current Order ID:", state.currentOrderId);
+  console.log("Drink ID:", state.drinkId);
+  console.log("New Quantity:", state.newQuantity);
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart'));
@@ -21,8 +32,8 @@ function Cart() {
     }
 
     if (data && data.me && data.me.orders.length) {
-      // Assuming the user's latest order is the current one
-      setCurrentOrderId(data.me.orders[0]._id);
+      // Update state here
+      setState(prevState => ({ ...prevState, currentOrderId: data.me.orders[0]._id }));
     }
 
   }, [data]);
@@ -35,8 +46,8 @@ function Cart() {
     try {
       await removeDrink({
         variables: {
-          removeDrinkFromOrderOrderId2: currentOrderId,
-          removeDrinkFromOrderDrinkId2: drinkId
+          removeDrinkFromOrderOrderId2: state.currentOrderId,
+          removeDrinkFromOrderDrinkId2: state.drinkId
         }
       });
     } catch (error) {
@@ -46,26 +57,55 @@ function Cart() {
 
   const handleDrinkQuantityChange = async (drinkId, event) => {
     const newQuantity = parseInt(event.target.value);
+
+    console.log("Drink ID:", drinkId);
+    console.log("New Quantity:", newQuantity);
+
+    // Update UI and local storage first
+    const updatedCartItems = cartItems.map(item => {
+      if (item.id === drinkId) {
+        return {
+          ...item,
+          quantity: newQuantity,
+        };
+      }
+      return item;
+    });
+
+    setCartItems(updatedCartItems);
+    localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+
+    // Then update in the backend
     changeDrinkQuantity(drinkId, newQuantity);
   };
 
-  const handleDrinkSizeChange = async (drinkId, event) => {
-    const newSize = event.target.value;
-    changeDrinkSize(drinkId, newSize);
-  };
-
   const changeDrinkQuantity = async (drinkId, newQuantity) => {
+    const updatedCart = cartItems.map(item => {
+      if (item.id === drinkId) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+  
+    setCartItems(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  
     try {
       await updateDrinkQuantity({
         variables: {
-          updateDrinkQuantityInOrderOrderId: 'YOUR_ORDER_ID',
-          updateDrinkQuantityInOrderDrinkId: drinkId,
+          updateDrinkQuantityInOrderOrderId: state.currentOrderId,
+          updateDrinkQuantityInOrderDrinkId: state.drinkId,
           newQuantity
         }
       });
     } catch (error) {
       console.error("Failed to update drink quantity:", error);
     }
+  };
+
+  const handleDrinkSizeChange = async (drinkId, event) => {
+    const newSize = event.target.value;
+    changeDrinkSize(drinkId, newSize);
   };
 
   const changeDrinkSize = async (drinkId, newSize) => {
