@@ -27,24 +27,17 @@ function Cart() {
     if (storedCart) {
       setCartItems(storedCart);
     }
-
-    if (data && data.me && data.me.orders.length) {
-      // Update state here
-      setState(prevState => ({ ...prevState, currentOrderId: data.me.orders[0]._id }));
-    }
-
   }, [data]);
 
-  const removeFromCart = async (drinkId, drinkName, drinkSize) => {
+  const removeFromCart = async (drinkId, orderId, drinkName, drinkSize) => {
     const updatedCart = cartItems.filter(item => !(item.name === drinkName && item.size === drinkSize));
     setCartItems(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-
     try {
       await removeDrink({
         variables: {
-          removeDrinkFromOrderOrderId2: state.currentOrderId,
-          removeDrinkFromOrderDrinkId2: state.drinkId
+          removeDrinkFromOrderOrderId2: orderId,
+          removeDrinkFromOrderDrinkId2: drinkId
         }
       });
     } catch (error) {
@@ -135,7 +128,7 @@ function Cart() {
 
             <ul role="list" className="divide-y divide-gray-200 border-b border-t border-gray-200">
               {cartItems.map((drink) => (
-                <li key={drink.id} className="flex py-6">
+                <li key={drink.name} className="flex py-6">
                   <div className="flex-shrink-0">
                     <img
                       src={drink.image}
@@ -164,7 +157,7 @@ function Cart() {
                       <div className="ml-4">
                         <button 
                           type="button" 
-                          onClick={() => removeFromCart(drink.id, drink.name, drink.size)}
+                          onClick={() => removeFromCart(drink.drinkId, drink.orderId, drink.name, drink.size)}
                           className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                           <span>Remove</span>
                         </button>
