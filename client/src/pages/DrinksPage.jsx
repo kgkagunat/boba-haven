@@ -2,9 +2,13 @@ import { React, useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_DRINK } from '../graphQL/queries';
+import { useMutation } from '@apollo/client';
+import { ADD_ORDER, ADD_DRINK_TO_EXISTING_ORDER } from '../graphQL/mutations';
 import atmosBlue from '../assets/images/atmos_blue_pngwing.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
+import AuthService from '../utils/auth';
+
 
 const DrinksPage = () => {
     const { id } = useParams();
@@ -13,6 +17,7 @@ const DrinksPage = () => {
     const { data, loading, error } = useQuery(GET_DRINK, {
         variables: { drinkId: id }
     });
+    const [addOrder] = useMutation(ADD_ORDER);
 
     const selectedDrink = data ? data.drink : null;
     const initialSize = {
@@ -25,28 +30,47 @@ const DrinksPage = () => {
         setDrinkSize({ size, price });
     }
 
-    const addToCart = () => {
-        let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-        const currentIndex = currentCart.findIndex(item => item.name === selectedDrink.name && item.size === drinkSize.size);
-    
-        if (currentIndex !== -1) {
-            currentCart[currentIndex].quantity += 1;
-        } else {
-            const currentDrink = {
-                name: selectedDrink.name,
-                size: drinkSize.size,
-                price: drinkSize.price,
-                quantity: 1
-            }
-            currentCart.push(currentDrink);
+    const addToCart = async () => {
+        if (!AuthService.loggedIn()) {
+            setFeedbackMessage("Please log in to add items to the cart.");
+            return;
         }
     
-        localStorage.setItem('cart', JSON.stringify(currentCart));
+        const orderDrinks = [{
+            drinkId: selectedDrink._id,
+            quantity: 1,
+            size: drinkSize.size,
+        }];
     
-        setFeedbackMessage("Item added to cart!");
-        setTimeout(() => setFeedbackMessage(""), 2000);  // Set message to 2 seconds, before it disappears
+        try {
+            const { data } = await addOrder({ variables: { drinks: orderDrinks } });
+
+            if (data.addOrder._id) {
+                let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+                const currentIndex = currentCart.findIndex(item => item.name === selectedDrink.name && item.size === drinkSize.size);
+
+                if (currentIndex !== -1) {
+                    currentCart[currentIndex].quantity += 1;
+                } else {
+                    const currentDrink = {
+                        name: selectedDrink.name,
+                        size: drinkSize.size,
+                        price: drinkSize.price,
+                        quantity: 1
+                    }
+                    currentCart.push(currentDrink);
+                }
+
+                localStorage.setItem('cart', JSON.stringify(currentCart));
+                setFeedbackMessage("Item added to cart!");
+            }
+        } catch (err) {
+            console.error("Error adding order:", err);
+            setFeedbackMessage("Error adding to cart. Please try again.");
+        }
+
+        setTimeout(() => setFeedbackMessage(""), 2000);
     };
-    
 
     if (!selectedDrink) {
         return null;
