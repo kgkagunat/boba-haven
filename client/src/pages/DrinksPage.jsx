@@ -23,20 +23,6 @@ const DrinksPage = () => {
     const [addDrinkToExistingOrder] = useMutation(ADD_DRINK_TO_EXISTING_ORDER);
     const selectedDrink = data?.drink;
 
-    // useEffect(() => {
-    //     console.log('useEffect triggered with data:', data, 'and userData:', userData);
-    //     if (selectedDrink) {
-    //         setDrinkSize(prevSize => ({ ...prevSize, price: selectedDrink.prices.medium }));
-    //     }
-    //     if (userData?.me?.orders) {
-    //         console.log('Found user orders:', userData.me.orders);
-    //         const activeOrder = userData.me.orders.find(order => !order.purchaseDate);
-    //         if (activeOrder) {
-    //             setCurrentOrderId(activeOrder._id);
-    //         }
-    //     }
-    // }, [data, userData]);
-
     useEffect(() => {
         console.log("currentOrderId changed to:", currentOrderId);
     }, [currentOrderId]);
@@ -122,7 +108,8 @@ const DrinksPage = () => {
             size: drinkSize.size,
             price: drinkSize.price,
             quantity: 1,
-            orderId: currentOrderId
+            orderId: currentOrderId,
+            drinkId: selectedDrink._id
         };
         console.log("Updating local cart with selected drink:", selectedDrink.name);
         const cart = JSON.parse(localStorage.getItem('cart') || "[]");
