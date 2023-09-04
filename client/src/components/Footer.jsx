@@ -62,13 +62,13 @@ const navigation = {
   
 function Footer() {
     return (
-      <footer className="bg-white">
+      <footer className="bg-gradient-to-b from-white to-purple-200">
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
           {/* Footer Nav Links */}
-          <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
+          <nav className="-mb-10 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
           {navigation.main.map((item) => (
               <div key={item.name} className="pb-6 hover:animate-subtleBounce">
-              <Link to={item.href} className="font-twinkle text-xl leading-6 text-gray-600 hover:text-pink-400 file:">
+              <Link to={item.href} className="font-twinkle text-2xl leading-6 text-gray-600 hover:text-pink-400 file:">
                   {item.name}
               </Link>
               </div>
@@ -79,19 +79,19 @@ function Footer() {
           {navigation.social.map((item) => (
               <a key={item.name} href={item.href} className="text-gray-600 hover:text-pink-400 transform transition-transform duration-300 hover:scale-150">
               <span className="sr-only">{item.name}</span>
-              <item.icon className="h-6 w-6" aria-hidden="true" />
+              <item.icon className="h-8 w-8" aria-hidden="true" />
               </a>
           ))}
           </div>
-          <p className="font-gamja mt-10 text-center text-xl leading-5 text-pink-400">
+          <p className="font-gamja mt-6 text-center text-xl leading-5 text-pink-500">
           &copy; 2023 Boba Haven, Inc. All rights reserved.
           </p>
-          <p className="font-gamja mt-5 text-center text-xl leading-5 text-blue-400 transition ease-in-out duration-700 hover:scale-110">
+          <p className="font-gamja mt-5 text-center text-xl leading-5 text-blue-500 transition ease-in-out duration-700 hover:scale-110">
           <a href="mailto:info.bubblehaven@gmail.com">
               info.bubblehaven@gmail.com
           </a>
           </p>
-          <p className="font-gamja mt-4 text-center text-xl leading-5 text-pink-400">
+          <p className="font-gamja mt-4 -mb-8 text-center text-xl leading-5 text-pink-500">
           123 Bubble Lane Sipville, TeaTown 98765 BobaLand
           </p>
       </div>
