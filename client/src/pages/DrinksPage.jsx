@@ -102,8 +102,8 @@ const DrinksPage = () => {
                         </form>
                     </section>
                     <div className="font-gamja flex justify-center text-xl mt-4 transform transition-transform duration-200 hover:text-pink-400 hover:scale-110">
-                    <Link to="/" className="">
-                        Click me to go back home 
+                    <Link to="/" className="mt-5">
+                        Click me to go back home / drinks menu 
                         <FontAwesomeIcon icon={faHome} />
                     </Link>
                 </div>
