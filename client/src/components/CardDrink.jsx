@@ -3,10 +3,16 @@ import { CalendarIcon, IdentificationIcon } from '@heroicons/react/24/outline'
 
 export default function Example() {
   const [showModal, setShowModal] = useState(false)
+  const [email, setEmail] = useState('');
 
   const handleSubscribe = (event) => {
     event.preventDefault()
     setShowModal(true)
+    setEmail('')
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   return (
@@ -31,6 +37,8 @@ export default function Example() {
                 required
                 className="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-black shadow-lg ring-1 ring-inset ring-black/10 focus:ring-2 focus:ring-inset focus:ring-pink-500 sm:text-sm sm:leading-6"
                 placeholder="Enter your email"
+                value={email}
+                onChange={handleEmailChange}
               />
               <button
                 type="submit"
@@ -81,7 +89,7 @@ export default function Example() {
                 <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
               </div>
               <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-              <div className="inline-block align-bottom bg-gradient-to-br from-white to-pink-400 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+              <div className="inline-block align-bottom bg-radial-gradient-white-pink rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
                 <div>
                   <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
                     <svg className="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
