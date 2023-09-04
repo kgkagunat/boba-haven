@@ -21,7 +21,7 @@ export default function Example() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
           <div className="max-w-xl lg:max-w-lg">
-            <h2 className="font-twinkle text-3xl font-bold tracking-tight text-black sm:text-4xl"> Boba Haven's Magical Monthly Brigade!</h2>
+            <h2 className="font-twinkle text-3xl font-bold tracking-tight text-black sm:text-4xl">Bubble Haven's Magical Monthly Brigade!</h2>
             <p className="font-gamja mt-4 text-xl leading-8 text-black">
             Hey, Boba Brigade crew! Come celebrate with us and try our upcoming new drink, the 'Fall Magic'! 
             Enjoy the taste of autumn's swirling flavors, featuring enchanting aromas of pumpkin spice and a hint of cinnamon. Be among the first to savor this limited-edition drink!
