@@ -9,6 +9,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 const DrinksPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [feedbackMessage, setFeedbackMessage] = useState("");
     const { data, loading, error } = useQuery(GET_DRINK, {
         variables: { drinkId: id }
     });
@@ -16,7 +17,7 @@ const DrinksPage = () => {
     const selectedDrink = data ? data.drink : null;
     const initialSize = {
         size: "medium",
-        price: selectedDrink?.prices.small || 0
+        price: selectedDrink?.prices.medium || 0
     };
     const [drinkSize, setDrinkSize] = useState(initialSize);
 
@@ -26,15 +27,26 @@ const DrinksPage = () => {
 
     const addToCart = () => {
         let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-        const currentDrink = {
-            name: selectedDrink.name,
-            size: drinkSize.size,
-            price: drinkSize.price,
-            quantity: 1
+        const currentIndex = currentCart.findIndex(item => item.name === selectedDrink.name && item.size === drinkSize.size);
+    
+        if (currentIndex !== -1) {
+            currentCart[currentIndex].quantity += 1;
+        } else {
+            const currentDrink = {
+                name: selectedDrink.name,
+                size: drinkSize.size,
+                price: drinkSize.price,
+                quantity: 1
+            }
+            currentCart.push(currentDrink);
         }
-        currentCart.push(currentDrink);
+    
         localStorage.setItem('cart', JSON.stringify(currentCart));
+    
+        setFeedbackMessage("Item added to cart!");
+        setTimeout(() => setFeedbackMessage(""), 2000);  // Set message to 2 seconds, before it disappears
     };
+    
 
     if (!selectedDrink) {
         return null;
@@ -92,7 +104,9 @@ const DrinksPage = () => {
                     <section aria-labelledby="options-heading">
                         <form>
                         <div className="mt-10">
+                        {feedbackMessage && <p className="font-gamja flex items-center justify-center text-3xl text-bold text-pink-600">{feedbackMessage}</p>}
                             <button
+                                type="button"
                                 onClick={addToCart}
                                 className="font-gamja text-3xl flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                             >
