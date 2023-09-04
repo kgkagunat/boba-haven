@@ -30,6 +30,8 @@ class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    // localStorage.removeItem('userId'); // Clear user-specific data
+    // localStorage.removeItem('cart'); // Clear cart
     window.location.reload();
   }
 }
