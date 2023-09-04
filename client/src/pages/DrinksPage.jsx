@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { GET_DRINK } from '../graphQL/queries';
+import { GET_ME, GET_DRINK } from '../graphQL/queries';
 import { useMutation } from '@apollo/client';
 import { ADD_ORDER, ADD_DRINK_TO_EXISTING_ORDER } from '../graphQL/mutations';
 import atmosBlue from '../assets/images/atmos_blue_pngwing.png';
@@ -14,10 +14,16 @@ const DrinksPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [feedbackMessage, setFeedbackMessage] = useState("");
+
     const { data, loading, error } = useQuery(GET_DRINK, {
         variables: { drinkId: id }
     });
+    const { data: userData } = useQuery(GET_ME);
+
     const [addOrder] = useMutation(ADD_ORDER);
+    const [addDrinkToExistingOrder] = useMutation(ADD_DRINK_TO_EXISTING_ORDER);
+
+    const currentOrder = userData?.me?.orders?.[0];  // assuming the latest order is the first one
 
     const selectedDrink = data ? data.drink : null;
     const initialSize = {
@@ -42,13 +48,28 @@ const DrinksPage = () => {
             size: drinkSize.size,
         }];
     
+        let orderId = "";  // To store the order id
+        
         try {
-            const { data } = await addOrder({ variables: { drinks: orderDrinks } });
-
-            if (data.addOrder._id) {
+            if (currentOrder && !currentOrder.purchaseDate) {  // Check if there's an open order
+                const { data } = await addDrinkToExistingOrder({ 
+                    variables: { 
+                        orderId: currentOrder._id, 
+                        addDrinkToExistingOrderDrinkId: selectedDrink._id,
+                        quantity: 1,
+                        size: drinkSize.size
+                    } 
+                });
+                orderId = currentOrder._id;
+            } else {
+                const { data } = await addOrder({ variables: { drinks: orderDrinks } });
+                orderId = data.addOrder._id;
+            }
+    
+            if (orderId) {
                 let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
                 const currentIndex = currentCart.findIndex(item => item.name === selectedDrink.name && item.size === drinkSize.size);
-
+    
                 if (currentIndex !== -1) {
                     currentCart[currentIndex].quantity += 1;
                 } else {
@@ -56,11 +77,12 @@ const DrinksPage = () => {
                         name: selectedDrink.name,
                         size: drinkSize.size,
                         price: drinkSize.price,
-                        quantity: 1
+                        quantity: 1,
+                        orderId  // Store order id with the drink
                     }
                     currentCart.push(currentDrink);
                 }
-
+    
                 localStorage.setItem('cart', JSON.stringify(currentCart));
                 setFeedbackMessage("Item added to cart!");
             }
@@ -68,9 +90,10 @@ const DrinksPage = () => {
             console.error("Error adding order:", err);
             setFeedbackMessage("Error adding to cart. Please try again.");
         }
-
+    
         setTimeout(() => setFeedbackMessage(""), 2000);
     };
+    
 
     if (!selectedDrink) {
         return null;
