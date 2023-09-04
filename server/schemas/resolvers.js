@@ -60,29 +60,31 @@ const resolvers = {
             return { token, user };
         },
         addOrder: async (parent, { drinks }, context) => {
-            if(!context.user) {
-                throw new AuthenticationError('Not logged in');
+            if (!context.user) {
+            throw new AuthenticationError('Not logged in');
             }
-            
-            // Calculate priceAtOrderTime for each drink in the order based on size -- ensure all async operations are complete before continuing
-            const drinksWithPrice = await Promise.all (
-                drinks.map(async drink => {
+
+            const drinksWithPrice = await Promise.all(
+            drinks.map(async (drink) => {
                 const drinkDetails = await Drink.findById(drink.drinkId);
                 return {
-                    drink: drink.drinkId,
-                    quantity: drink.quantity,
-                    size: drink.size,
-                    priceAtOrderTime: drinkDetails.prices[drink.size]
-                    };
-                })
+                drink: drink.drinkId,
+                quantity: drink.quantity,
+                size: drink.size,
+                priceAtOrderTime: drinkDetails.prices[drink.size],
+                };
+            })
             );
 
-            // 1st) Create the order in the database
-            const order = await Orders.create({ drinks: drinksWithPrice, user: context.user._id });
+            const cart = await Orders.findOneAndUpdate(
+            { user: context.user._id },
+            {
+                $push: { drinks: { $each: drinksWithPrice } },
+            },
+            { upsert: true, new: true }
+            ).populate('drinks.drink');
 
-            // 2nd) Populate the order with the drink details
-            const createdOrder = await Orders.findById(order._id).populate('drinks.drink');
-            return createdOrder;
+            return cart;
         },
         addDrinkToExistingOrder: async (parent, { orderId, drinkId, quantity, size }, context) => {
             if(!context.user) {
