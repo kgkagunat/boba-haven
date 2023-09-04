@@ -17,31 +17,36 @@ const people = [
     name: 'Dani Chankhour',
     role: 'CEO',
     imageUrl: daniImage,
-    description: "Meet Dani Chankhour, the visionary behind Boba Haven's sweet success! With an entrepreneurial spirit as vibrant as the boba pearls, Dani embarked on a journey to create a haven where every sip is a delightful escape"
+    description: "Meet Dani Chankhour, the visionary behind Boba Haven's sweet success! With an entrepreneurial spirit as vibrant as the boba pearls, Dani embarked on a journey to create a haven where every sip is a delightful escape",
+    imageUrlDescription: "panda avatar from pngwing.com",
   },
   {
     name: 'Priyanka Mary Christine',
     role: 'CEO',
     imageUrl: priyankaImage,
-    description: "Priyanka Mary Christine, the other half of our dynamic CEO duo, brings her endless energy and a sprinkle of stardust to Boba Haven. With her creative flair, she turns each boba cup into a work of art."
+    description: "Priyanka Mary Christine, the other half of our dynamic CEO duo, brings her endless energy and a sprinkle of stardust to Boba Haven. With her creative flair, she turns each boba cup into a work of art.",
+    imageUrlDescription: "cat smile from pngwing.com",
   },
   {
     name: 'Kamauliola Agunat',
     role: 'Boba-Viruoso',
     imageUrl: kamauliolaImage,
-    description: "Kamauliola Agunat, our Boba-Virtuoso, dances through the kitchen like a maestro composing symphonies of flavor. Mixing, shaking, and stirring, Kamauliola turns simple tea into a masterpiece of joy."
+    description: "Kamauliola Agunat, our Boba-Virtuoso, dances through the kitchen like a maestro composing symphonies of flavor. Mixing, shaking, and stirring, Kamauliola turns simple tea into a masterpiece of joy.",
+    imageUrlDescription: "koala avatar from pngwing.com",
   },
   {
     name: 'Karina Valencia',
     role: 'Boba-Artisan',
     imageUrl: karinaImage,
-    description: "Karina Valencia, the Boba-Artisan, weaves magic with every tapioca pearl and tea infusion. Her hands craft boba drinks that are not only delicious but also beautiful enough to belong in an art gallery."
+    description: "Karina Valencia, the Boba-Artisan, weaves magic with every tapioca pearl and tea infusion. Her hands craft boba drinks that are not only delicious but also beautiful enough to belong in an art gallery.",
+    imageUrlDescription: "kawaii kitty from pngwing.com",
   },
   {
     name: 'Jose Seto',
     role: 'Boba-Curator',
     imageUrl: joseImage,
-    description: "Jose Seto, the Boba-Curator, approaches each boba creation with the precision of a sommelier. With an uncanny knack for pairing flavors, Jose transforms sips into delightful adventures for your taste buds."
+    description: "Jose Seto, the Boba-Curator, approaches each boba creation with the precision of a sommelier. With an uncanny knack for pairing flavors, Jose transforms sips into delightful adventures for your taste buds.",
+    imageUrlDescription: "pig illustration from pngwing.com",
   },
   // More people added here...
 ];
@@ -76,7 +81,7 @@ function About() {
               <img
                 className="mx-auto h-48 w-48 md:h-48 md:w-48 rounded-full"
                 src={person.imageUrl}
-                alt={`Image of ${person.name}`}
+                alt={person.imageUrlDescription}
               />
               <h3 className="font-gamja text-3xl font-bold m-2 leading-6 text-white">{person.name}</h3>
               <p className="font-gamja text-2xl font-bold mt-2 leading-5 text-gray-400">{person.role}</p>
