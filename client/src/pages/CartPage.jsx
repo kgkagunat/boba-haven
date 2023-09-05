@@ -48,9 +48,6 @@ function Cart() {
   const handleDrinkQuantityChange = async (drinkId, event) => {
     const newQuantity = parseInt(event.target.value);
 
-    console.log("Drink ID:", drinkId);
-    console.log("New Quantity:", newQuantity);
-
     // Update UI and local storage first
     const updatedCartItems = cartItems.map(item => {
       if (item.id === drinkId) {

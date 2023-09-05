@@ -15,7 +15,6 @@ const DrinksPage = () => {
 
     // Initialize currentOrderId from local storage
     const [currentOrderId, setCurrentOrderId] = useState(localStorage.getItem('currentOrderId'));
-    console.log('Initial currentOrderId:', currentOrderId);
 
     const { data, loading, error } = useQuery(GET_DRINK, { variables: { drinkId: id } });
     const { data: userData, userLoading, userError } = useQuery(GET_ME);
@@ -24,7 +23,6 @@ const DrinksPage = () => {
     const selectedDrink = data?.drink;
 
     useEffect(() => {
-        console.log("currentOrderId changed to:", currentOrderId);
     }, [currentOrderId]);
 
     const handleSizeChange = (size, price) => {
@@ -32,9 +30,7 @@ const DrinksPage = () => {
     };
 
     const handleAddToCart = async () => {
-        console.log("handleAddToCart called");
         if (!AuthService.loggedIn()) {
-            console.log("User is not logged in.");
             setFeedbackMessage("Please log in to add items to the cart.");
             return;
         }
@@ -65,7 +61,6 @@ const DrinksPage = () => {
                     }
                 });
             } else {
-                console.log("No current order found. Creating a new one.");
                 const newOrderResponse = await addOrder({
                     variables: {
                         drinks: [{
@@ -91,7 +86,6 @@ const DrinksPage = () => {
                 if (newOrderResponse.data && newOrderResponse.data.addOrder) {
                     setCurrentOrderId(newOrderResponse.data.addOrder._id); 
                     localStorage.setItem('currentOrderId', newOrderResponse.data.addOrder._id); 
-                    console.log('New order created. Updated currentOrderId:', newOrderResponse.data.addOrder._id);
                 }
             }
             updateLocalCart(selectedDrink);
@@ -111,7 +105,6 @@ const DrinksPage = () => {
             orderId: currentOrderId,
             drinkId: selectedDrink._id
         };
-        console.log("Updating local cart with selected drink:", selectedDrink.name);
         const cart = JSON.parse(localStorage.getItem('cart') || "[]");
         const existingItemIndex = cart.findIndex(item => 
             item.name === cartItem.name && 
@@ -119,10 +112,8 @@ const DrinksPage = () => {
             item.orderId === cartItem.orderId
         );
         if (existingItemIndex !== -1) {
-            console.log("Found existing cart item. Incrementing quantity.");
             cart[existingItemIndex].quantity += 1;
         } else {
-            console.log("New cart item. Adding to cart.");
             cart.push(cartItem);
         }
         cartItem.orderId = currentOrderId || localStorage.getItem('currentOrderId'); // Fetching from state or LocalStorage

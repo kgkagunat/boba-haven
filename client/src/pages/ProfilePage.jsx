@@ -35,8 +35,6 @@ function ProfilePage() {
     }],
   });
 
-  // console.log(user);
-
   useEffect(() => {
     if (data && data.me) {
       setUser(data.me);
