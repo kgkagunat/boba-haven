@@ -90,7 +90,7 @@ function Footer() {
         <p className="font-gamja mt-6 text-center text-xl leading-5 text-pink-500">
           &copy; 2023 Bubble Haven, Inc. All rights reserved.
         </p>
-        <p className="font-gamja mt-5 text-center text-xl leading-5 text-blue-500 transition ease-in-out duration-700 hover:scale-110">
+        <p className="font-gamja mt-5 text-center text-xl leading-5 text-blue-500 transition ease-in-out duration-700 hover:scale-125">
           <a href="mailto:info.bubblehaven@gmail.com">info.bubblehaven@gmail.com</a>
         </p>
         <p className="font-gamja mt-4 text-center text-xl leading-5 text-pink-500">
