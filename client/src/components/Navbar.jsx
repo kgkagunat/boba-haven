@@ -140,7 +140,7 @@ function Navbar() {
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6">
-                  <button onClick={() => setShowModal(false)} type="button" className="font-gamja text-2xl inline-flex justify-center w-full rounded-md border border-transparent shadow-md px-4 py-1 bg-red-600 font-bold text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ">
+                  <button onClick={() => setShowModal(false)} type="button" className="font-gamja text-2xl inline-flex justify-center w-full rounded-md border border-transparent shadow-md px-4 py-1 bg-red-600 font-bold text-white hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ">
                     Close
                   </button>
                 </div>
