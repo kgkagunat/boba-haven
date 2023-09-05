@@ -21,7 +21,7 @@ export default function Example() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
           <div className="max-w-xl lg:max-w-lg">
-            <h2 className="font-twinkle text-3xl font-bold tracking-tight text-black sm:text-4xl slide-in-left">Bubble Haven's Magical Monthly Brigade!</h2>
+            <h2 className="font-twinkle text-3xl font-bold tracking-tight text-black sm:text-4xl slide-in-left hover:text-blue-600 transition-colors duration-300">Bubble Haven's Magical Monthly Brigade!</h2>
             <p className="font-gamja mt-4 text-xl leading-8 text-black slide-in-left-2">
             Hey, Boba Brigade crew! Come celebrate with us and try our upcoming new drink, the 'Fall Magic'! 
             Enjoy the taste of autumn's swirling flavors, featuring enchanting aromas of pumpkin spice and a hint of cinnamon. Be among the first to savor this limited-edition drink!
@@ -44,7 +44,7 @@ export default function Example() {
               <button
                 type="submit"
                 onClick={handleSubscribe}
-                className="font-gamja text-xl flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                className="font-gamja text-xl flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 font-semibold text-white shadow-sm hover:bg-indigo-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 Subscribe
               </button>
@@ -55,7 +55,7 @@ export default function Example() {
               <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
                 <CalendarIcon className="h-6 w-6 text-black slide-in-right" aria-hidden="true" />
               </div>
-              <dt className="font-twinkle text-2xl mt-4 font-semibold text-black slide-in-right">Bubble Workshops!</dt>
+              <dt className="font-twinkle text-2xl mt-4 font-semibold text-black slide-in-right hover:text-blue-600 transition-colors duration-300">Bubble Workshops!</dt>
               <dd className="font-gamja text-xl mt-2 leading-7 text-black slide-in-right-2">
                 Ever wondered how we create our magic boba? Join us for a workshop every Saturday this month for a fun-filled workshops. Learn to craft your drink and take home a piece of Boba Haven with you!
               </dd>
@@ -64,7 +64,7 @@ export default function Example() {
               <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
                 <IdentificationIcon className="h-6 w-6 text-black slide-in-right" aria-hidden="true" />
               </div>
-              <dt className="font-twinkle text-2xl mt-4 font-semibold text-black slide-in-right">Buddy Brigade!</dt>
+              <dt className="font-twinkle text-2xl mt-4 font-semibold text-black slide-in-right hover:text-blue-600 transition-colors duration-300">Buddy Brigade!</dt>
               <dd className="font-gamja text-xl mt-2 leading-7 text-black slide-in-right-2">
                 Now introducing our "Buddy Brigade Cards"! With every purchase of a drink, earn boba stars that take you closer to free drinks, secret recipes, and merchandise.
               </dd>
@@ -73,13 +73,13 @@ export default function Example() {
               <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
                 <SpeakerWaveIcon className="h-6 w-6 text-black slide-in-right" aria-hidden="true" />
               </div>
-              <dt className="font-twinkle text-2xl mt-4 font-semibold text-blac slide-in-rightk">Audio Visualizer!</dt>
+              <dt className="font-twinkle text-2xl mt-4 font-semibold text-blac slide-in-rightk hover:text-blue-600 transition-colors duration-300">Audio Visualizer!</dt>
               <dd className="font-gamja text-xl mt-2 leading-7 text-black slide-in-right-2">
                 Try out our Audio Visualizer! Upload your favorite song and watch the magic unfold!
               </dd>
               {/* Adding the visualizer link button below */}
               <div className="mt-4">
-                <Link to="/audioVisualizer" className="font-gamja text-xl inline-flex justify-center w-full rounded-md border border-transparent shadow-md px-4 py-1 bg-blue-600 font-bold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 slide-in-right-2">
+                <Link to="/audioVisualizer" className="font-gamja text-xl inline-flex justify-center w-full rounded-md border border-transparent shadow-md px-4 py-1 bg-indigo-500 font-bold text-white hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 slide-in-right-2">
                   Go to Visualizer
                 </Link>
               </div>
