@@ -24,7 +24,7 @@ function Navbar() {
         <Link to="/" className="font-gamja text-4xl font-bold hover:text-pink-400 hover:scale-110 transition ease-in-out duration-700">Bubble Haven</Link>
 
         {/* Centered links */}
-        <div className="hidden md:flex space-x-8">
+        <div className="hidden md:flex space-x-8 justify-center mr-20">
           <a href="#" className="hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
             <FontAwesomeIcon icon={faHome} className="icon-1.4x p-1" />
           </a>
@@ -61,7 +61,7 @@ function Navbar() {
           </>
         ) : (
           <Link to="/login" className="hidden md:block text-black hover:text-pink-400">
-            <div className="border rounded-full p-2">
+            <div className="font-gamja text-2xl border rounded-full p-2">
               <FontAwesomeIcon icon={faUser} /> Login
             </div>
           </Link>

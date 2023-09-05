@@ -139,7 +139,7 @@ const DrinksPage = () => {
                                 key={size}
                                 type="button" 
                                 onClick={() => handleSizeChange(size, selectedDrink?.prices[size])}
-                                className="font-gamja text-2xl text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                className="font-gamja text-2xl text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-indigo-700 dark:hover:bg-zinc-800 focus:outline-none dark:focus:ring-pink-500"
                             >
                                 {size.charAt(0).toUpperCase() + size.slice(1)} ${selectedDrink?.prices[size]}
                             </button>
@@ -158,11 +158,11 @@ const DrinksPage = () => {
                     <button
                         type="button"
                         onClick={handleAddToCart}
-                        className="font-gamja text-3xl flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                        className="font-gamja text-3xl flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-700 px-3 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                     >
                         Add to cart
                     </button>
-                    <div className="font-gamja flex justify-center text-xl mt-4 transform transition-transform duration-200 hover:text-pink-400 hover:scale-110">
+                    <div className="font-gamja flex justify-center text-xl mt-6 transform transition-transform duration-200 hover:text-pink-400 hover:scale-110">
                         <Link to="/">
                             Go back home / drinks menu 
                             <FontAwesomeIcon icon={faHome} />
