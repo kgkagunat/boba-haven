@@ -130,11 +130,6 @@ function Cart() {
               {cartItems.map((drink) => (
                 <li key={drink.name} className="flex py-6">
                   <div className="flex-shrink-0">
-                    <img
-                      src={drink.image}
-                      alt={drink.name}
-                      className="h-24 w-24 rounded-md object-cover object-center sm:h-32 sm:w-32"
-                    />
                   </div>
 
                   <div className="ml-4 flex flex-1 flex-col sm:ml-6">
