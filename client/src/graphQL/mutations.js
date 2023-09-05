@@ -111,3 +111,20 @@ mutation RemoveDrinkFromOrder($removeDrinkFromOrderOrderId2: ID!, $removeDrinkFr
     }
   }
 `;
+
+export const CHECKOUT = gql`
+  mutation checkout($drinks: [OrderInputDrink!]!) {
+    checkout(drinks: $drinks) {
+      session
+    }
+  }
+`;
+
+export const PROCESS_PAYMENT = gql`
+  mutation ProcessStripePayment($paymentMethodId: String!, $amount: Float!) {
+    processStripePayment(paymentMethodId: $paymentMethodId, amount: $amount) {
+      success
+      message
+    }
+  }
+`;
