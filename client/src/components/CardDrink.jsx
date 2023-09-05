@@ -5,15 +5,22 @@ import { Link } from 'react-router-dom';
 export default function Example() {
   const [showModal, setShowModal] = useState(false)
   const [email, setEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubscribe = (event) => {
     event.preventDefault()
-    setShowModal(true)
-    setEmail('')
+    if (email.trim() !== '') {
+      setShowModal(true);
+      setEmail('');
+      setErrorMessage('');
+    } else {
+      setErrorMessage('Please enter your email');
+    }
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    setErrorMessage('');
   };
 
   return (
@@ -49,6 +56,7 @@ export default function Example() {
                 Subscribe
               </button>
             </div>
+            {errorMessage && <p className="font-gamja text-2xl text-red-600 mt-2">Uh Oh!? {errorMessage}</p>}
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
             <div className="flex flex-col items-start">
