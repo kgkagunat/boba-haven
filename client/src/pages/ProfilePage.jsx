@@ -19,20 +19,6 @@ function ProfilePage() {
     _id: '',
     name: '',
     email: '',
-    orders: [{
-      _id: '',
-      purchaseDate: '',
-      drinks: [{
-        drink: {
-          _id: '',
-          name: '',
-          image: ''
-        },
-        quantity: 0,
-        size: '',
-        priceAtOrderTime: 0
-      }]
-    }],
   });
 
   useEffect(() => {
@@ -197,26 +183,8 @@ function ProfilePage() {
                     </div>
 
                     <div className="mt-6 border-t border-gray-100">
-                    <h3 className="px-4 font-gamja text-4xl font-semibold leading-7 text-gray-900">Order History</h3>
-
-                    {user && user.orders && user.orders.length > 0 ? (
-                        user.orders.map(order => (
-                            <div key={order._id} className="mt-4 p-4 bg-white rounded shadow">
-                                <h4 className="font-gamja text-3xl leading-6 text-gray-900">Order from {new Date(order.purchaseDate).toLocaleDateString()}</h4>
-                                <ul>
-                                    {order.drinks.map(drinkItem => (
-                                        <li key={drinkItem.drink._id} className="mt-2">
-                                            <strong>{drinkItem.drink.name}</strong> - {drinkItem.quantity} x {drinkItem.size}, ${drinkItem.priceAtOrderTime.toFixed(2)}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))
-                    ) : (
-                        <p className="mt-4 px-4 font-gamja text-2xl leading-6 text-gray-700">You haven't placed any orders yet.</p>
-                    )}
-                </div>
-
+                    
+                    </div>
                   </dl>
                 </div>
               </div>
