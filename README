@@ -19,11 +19,23 @@
 
 ## **Description**
 
-    
+This app was created to streamline receiving orders and payment. This should allow the baristas to focus on making the dirnks as they come in and should lessen the wait for when the customers come in ready for their order to be ready.
 
 
 ## **Getting Started**
 
+If you clone the repo follow the steps below:
+- open the terminal for the project
+- run 'npm run i' to install the dependencies
+- fill out the .env example files
+- run 'npm run seed'
+- run 'npm run develop'
+
+After the app starts running if you don't want to login we have a preset test login that you are open to use  
+
+email: test123@gmail.com  
+
+password: password01
 
 ### Dependencies
 
@@ -36,7 +48,7 @@
 
 ### Executing program
 
-[Heroku Link]()
+[Heroku Link](https://bobahaven1-238772948fdb.herokuapp.com/)
 
 ## Author(s)
 
@@ -60,12 +72,33 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 ## Acknowledgments
 
 * Dependencies
-    * [Express](https://www.npmjs.com/package/express?activeTab=readme)
+    * [React](https://react.dev/)
+    * [Tailwind](https://tailwindcss.com/)
+    * [FontAwesome](https://fontawesome.com/)
+    * [HeadlessUI](https://headlessui.com/)
+    * [Stripe](https://stripe.com/)
+    * [GraphQl](https://graphql.org/)
+    * [Mongoose](https://mongoosejs.com/)
+    * [Bcrypt](https://www.npmjs.com/package/bcrypt)
+    * [Express](https://expressjs.com/)
+    * [JWT](https://jwt.io/)
 
 
 ## Deployed Program
 
-![]()
+![homepage1](/client/src/assets/images/readme_pics/pic1.png)
 
 
-![]()
+![homepage2](/client/src/assets/images/readme_pics/pic2.png)
+
+
+![homepage3](/client/src/assets/images/readme_pics/pic3.png)
+
+
+![drinkpage](/client/src/assets/images/readme_pics/pic4.png)
+
+
+![team page](/client/src/assets/images/readme_pics/pic5.png)
+
+
+![checkout page](/client/src/assets/images/readme_pics/pic6.png)
