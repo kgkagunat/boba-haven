@@ -2,7 +2,9 @@ const { AuthenticationError } = require('apollo-server-express');
 const { Drink, Orders, User, Payment } = require('../models');
 const { signToken } = require('../utils/auth');
 const { ApolloError } = require('apollo-server-express');
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
+// Stripe
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const imageBaseUrl = '/images/Drinks_pics';
 

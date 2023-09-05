@@ -10,7 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm"; // You will create this component later.
 
-const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
