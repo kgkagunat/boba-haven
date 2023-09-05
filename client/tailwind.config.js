@@ -21,8 +21,13 @@ module.exports = {
       animation: {
         subtleBounce: 'subtleBounce 1s forwards'
       },
+      backgroundImage: theme => ({
+        'radial-gradient-white-pink': 'radial-gradient(circle, #FFFFFF, #FFCEFF)',
+      }),
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }

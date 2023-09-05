@@ -14,12 +14,35 @@ import Footer from '../components/Footer';
 import LoginPage from './LoginPage';
 import AboutPage from './AboutPage';
 import SignUpPage from './SignUpPage';
+import ProfilePage from './ProfilePage';
+import DrinksPage from './DrinksPage';
 import CartPage from './CartPage';
+import MissingPage from './MissingPage';
+import CanvasAudioPage from './CanvasAudioPage'; // Canvas API + Audio API
 
 function MainContent() {
   const location = useLocation();
-  const showNavbar = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about" && location.pathname !== "/cart";
-  const showFooter = location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/about" && location.pathname !== "/cart";  
+  const showNavbar = ![
+    "/login",
+    "/signup",
+    "/about",
+    "/cart",
+    "/profile",
+    "/404",
+    "/drinks",
+    "/audioVisualizer"
+  ].some(path => location.pathname.startsWith(path));
+  
+  const showFooter = ![
+    "/login",
+    "/signup",
+    "/about",
+    "/cart",
+    "/profile",
+    "/404",
+    "/drinks",
+    "/audioVisualizer"
+  ].some(path => location.pathname.startsWith(path));
 
   return (
     <>
@@ -35,7 +58,11 @@ function MainContent() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/profile' element={<ProfilePage />} />
+        <Route path="/drinks/:id" element={<DrinksPage />} />
         <Route path='/cart' element={<CartPage />} />
+        <Route path='/404' element={<MissingPage />} />
+        <Route path="/audioVisualizer" element={<CanvasAudioPage />} /> {/* New route added */}
         {/* Add other routes here */}
       </Routes>
       {showFooter && <Footer />}
