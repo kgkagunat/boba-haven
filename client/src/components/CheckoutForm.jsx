@@ -82,21 +82,21 @@ function CheckoutForm({ totalAmount, cartItems, onClose }) {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="absolute inset-0 bg-black opacity-70 backdrop-blur-md"></div> 
-            <div className="bg-white p-8 w-11/12 md:max-w-2xl mx-auto rounded-lg shadow-2xl z-10">
+            <div className="bg-gradient-to-b from-white to-pink-200 p-8 w-11/12 md:max-w-2xl mx-auto rounded-lg shadow-2xl z-10">
                 {paymentSuccessful && (
                     <div className="text-center">
-                        <span role="img" aria-label="checkmark" className="text-green-500 text-4xl">✅</span>
-                        <p className="text-2xl font-bold text-green-500 mt-4">Payment Successful!</p>
+                        <span role="img" aria-label="checkmark" className="text-green-600 text-2xl">✅</span>
+                        <p className="font-twinkle text-3xl font-bold text-green-600 mt-4 mb-10">Payment Successful!</p>
                     </div>
                 )}
                 <h2 className="text-3xl font-bold font-gamja mb-6">Complete Your Purchase</h2>
-                <p className="mb-6 text-xl text-gray-600 font-tinkle">Total: ${totalAmount}</p>
+                <p className="font-gamja mb-6 text-3xl text-gray-600 font-tinkle">Total: ${totalAmount}</p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <CardElement className="p-3 border rounded"/>
+                    <CardElement className="text-black m-3 p-3 border rounded border-black"/>
                     {paymentSuccessful ? (
                         <Link to="/">
-                            <button className="bg-green-500 hover:bg-green-400 text-white w-full py-3 rounded focus:outline-none font-tinkle">
+                            <button className="font-gamja text-2xl mt-7 bg-green-500 hover:bg-green-400 text-white hover:text-black w-full py-3 rounded focus:outline-none">
                                 Return to Home
                             </button>
                         </Link>
