@@ -81,7 +81,7 @@ export default function Example() {
               <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
                 <SpeakerWaveIcon className="h-6 w-6 text-black slide-in-right" aria-hidden="true" />
               </div>
-              <dt className="font-twinkle text-2xl mt-4 font-semibold text-blac slide-in-rightk hover:text-blue-600 transition-colors duration-300">Audio Visualizer!</dt>
+              <dt className="font-twinkle text-2xl mt-4 font-semibold text-black slide-in-right hover:text-blue-600 transition-colors duration-300">Audio Visualizer!</dt>
               <dd className="font-gamja text-xl mt-2 leading-7 text-black slide-in-right-2">
                 Try out our Audio Visualizer! Upload your favorite song and watch the magic unfold!
               </dd>
