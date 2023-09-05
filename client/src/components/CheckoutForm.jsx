@@ -26,16 +26,16 @@ function CheckoutForm({ totalAmount, cartItems, onClose }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+    
         if (!stripe || !elements) return;
-
+    
         const cardElement = elements.getElement(CardElement);
-
+    
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card: cardElement,
         });
-
+    
         if (error) {
             console.log('[ERROR]', error);
             setFeedback('Payment failed. Please check your card details.');
@@ -50,23 +50,8 @@ function CheckoutForm({ totalAmount, cartItems, onClose }) {
                 if (response.data.processStripePayment.success) {
                     console.log('[PaymentMethod]', paymentMethod);
                     setPaymentSuccessful(true);
-
-                    logOrder({
-                        variables: {
-                            userId: userId,
-                            orderId: orderId
-                        }
-                    }).then(() => {
-                        console.log("Log order response:", response);
-                        emptyCart();
-                    }).catch(err => {
-                        console.error("Failed to log order:", err);
-                        console.error("Sent userId:", userId);
-                        console.error("Sent orderId:", orderId);
-                    });
-
                     setFeedback('Payment successful!');
-                    // onClose();
+                    emptyCart(); // Clear the cart after successful payment
                 } else {
                     setFeedback(response.data.processStripePayment.message || 'Payment failed. Please try again.');
                 }
@@ -77,6 +62,7 @@ function CheckoutForm({ totalAmount, cartItems, onClose }) {
             });
         }
     };
+    
 
 
     return (

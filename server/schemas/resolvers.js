@@ -250,29 +250,31 @@ const resolvers = {
               throw new ApolloError(`Failed to process payment: ${error.message}`);
             }
         },
-        logOrderToUserHistory: async (parent, { userId, orderId }, context) => {
-            if (!context.user) {
-              throw new AuthenticationError('Not logged in');
+        logOrderToUserHistory: async (_, { userId, orderId }) => {
+            const order = await Orders.findById(orderId); // Fetch the order
+
+            // Check if drinks exist and set a default name if missing
+            if (!order) {
+                throw new Error('Order not found.');
             }
-            
-            // Ensure the user has the permission to update the order history (i.e., it's their own history)
-            if (context.user._id !== userId) {
-              throw new AuthenticationError('You do not have permission to update this user');
+            if (order.drinks) {
+                order.drinks.forEach(drink => {
+                    if (!drink.name) drink.name = "Unknown Drink";
+                });
+            } else {
+                throw new Error('No drinks found in the order.');
             }
-        
-            // Log the order into the user's order history
-            const updatedUser = await User.findByIdAndUpdate(
-              userId,
-              { $push: { orders: orderId } },
-              { new: true }
-            );
-        
-            if (!updatedUser) {
-              throw new Error('User not found');
+
+            // Fetch the user and set the order
+            const user = await User.findById(userId);
+            if (!user) {
+                throw new Error('User not found.');
             }
-        
-            return updatedUser;
-          },
+            user.orders.push(order);
+            await user.save();
+
+            return user;  // return the updated user
+        }
     }
 };
 
