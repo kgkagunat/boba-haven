@@ -79,6 +79,7 @@ type Mutation {
   removeDrinkFromOrder(orderId: ID!, drinkId: ID!): Order
   checkout(drinks: [OrderInputDrink!]!): Checkout
   processStripePayment(paymentMethodId: String!, amount: Float!): PaymentResponse!
+  logOrderToUserHistory(userId: ID!, orderId: ID!): User
 }
 
 input OrderInputDrink {

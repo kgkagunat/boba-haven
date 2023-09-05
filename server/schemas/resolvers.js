@@ -250,6 +250,29 @@ const resolvers = {
               throw new ApolloError(`Failed to process payment: ${error.message}`);
             }
         },
+        logOrderToUserHistory: async (parent, { userId, orderId }, context) => {
+            if (!context.user) {
+              throw new AuthenticationError('Not logged in');
+            }
+            
+            // Ensure the user has the permission to update the order history (i.e., it's their own history)
+            if (context.user._id !== userId) {
+              throw new AuthenticationError('You do not have permission to update this user');
+            }
+        
+            // Log the order into the user's order history
+            const updatedUser = await User.findByIdAndUpdate(
+              userId,
+              { $push: { orders: orderId } },
+              { new: true }
+            );
+        
+            if (!updatedUser) {
+              throw new Error('User not found');
+            }
+        
+            return updatedUser;
+          },
     }
 };
 
