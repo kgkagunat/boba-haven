@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import backgroundImage from '../assets/images/hand-drawn-butterfly-outline-background/butterfly_wallpaper.jpg';
 import confettiImage from '../assets/images/confetti_pngwing.png';
 import { Link } from 'react-router-dom';
@@ -52,6 +52,21 @@ const people = [
 ];
 
 function About() {
+  const cardAnimationDelays = [0, 400, 800, 1200, 1600];
+  const [animatedCards, setAnimatedCards] = useState([]);
+
+  useEffect(() => {
+    const animationTimeouts = people.map((_, index) => {
+      return setTimeout(() => {
+        setAnimatedCards((prev) => [...prev, index]);
+      }, cardAnimationDelays[index]);
+    });
+
+    return () => {
+      animationTimeouts.forEach((timeout) => clearTimeout(timeout));
+    };
+  }, []);
+
   return (
     <div
       className="bg-gray-900 min-h-screen flex flex-col justify-between items-center"
@@ -74,10 +89,10 @@ function About() {
         </div>
         <ul
           role="list"
-          className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8 slide-in-top-2"
+          className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-8"
         >
-          {people.map((person) => (
-            <li key={person.name} className="rounded-2xl bg-gray-700 px-6 py-8 sm:px-8">
+          {people.map((person, index) => (
+            <li key={person.name} className={`rounded-2xl bg-gray-700 px-6 py-8 sm:px-8 ${animatedCards.includes(index) ? 'slide-in-top-2 opacity-100' : 'opacity-0'}`}>
               <img
                 className="mx-auto h-48 w-48 md:h-48 md:w-48 rounded-full"
                 src={person.imageUrl}

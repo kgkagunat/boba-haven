@@ -21,26 +21,26 @@ function Navbar() {
     <nav className="bg-white bg-opacity-80 text-black sticky top-0 z-50 p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
 
-        <Link to="/" className="font-gamja text-4xl font-bold hover:text-pink-400 hover:scale-110 transition ease-in-out duration-500">Bubble Haven</Link>
+        <Link to="/" className="font-gamja text-4xl font-bold hover:text-pink-400 hover:scale-110 transition ease-in-out duration-700">Bubble Haven</Link>
 
         {/* Centered links */}
         <div className="hidden md:flex space-x-8">
-          <a href="#" className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150">
+          <a href="#" className="hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
             <FontAwesomeIcon icon={faHome} className="icon-1.4x p-1" />
           </a>
           {/* Drink Menu links */}
-          <a href="#drink-menu" className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150">
+          <a href="#drink-menu" className="hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
             <FontAwesomeIcon icon={faUtensils} className="icon-1.4x p-1" />
           </a>
           {/* About links */}
-          <Link to="/about" className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150">
+          <Link to="/about" className="hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
               <FontAwesomeIcon icon={faQuestionCircle} className="icon-1.4x p-1" />
           </Link>
           {/* Cart links */}
           <Link 
               to={currentUser ? "/cart" : "#"} 
               onClick={() => !currentUser && setShowModal(true)}
-              className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150"
+              className="hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500"
             >
               <FontAwesomeIcon icon={faShoppingCart} className="icon-1.4x p-1" />
           </Link>
@@ -51,7 +51,7 @@ function Navbar() {
         {currentUser ? (
           <>
             {/* If logged in, show user info or avatar */}
-            <Link to="/profile" className="hover:text-pink-400 transform transition-transform duration-200 hover:scale-150">
+            <Link to="/profile" className="hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
               {/* This is a placeholder icon for the avatar. You can replace with an actual avatar image */}
               <FontAwesomeIcon icon={faUser} className="icon-1.4x p-1" />
             </Link>
@@ -78,33 +78,33 @@ function Navbar() {
       </div>
       {/* Hamburger links */}
       <div className={`md:hidden ${isOpen ? 'flex' : 'hidden'} flex-col items-center mt-2`}>
-        <a href="#" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
+        <a href="#" className="block px-2 py-1 text-black hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
           <FontAwesomeIcon icon={faHome} className="icon-1.4x p-2" />
         </a>
         {/* Drink Menu Hamburger */}
-        <a href="#drink-menu" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
+        <a href="#drink-menu" className="block px-2 py-1 text-black hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
           <FontAwesomeIcon icon={faUtensils} className="icon-1.4x p-2" />
         </a>
         {/* About Hamburger */}
-        <Link to="/about" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
+        <Link to="/about" className="block px-2 py-1 text-black hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
             <FontAwesomeIcon icon={faQuestionCircle} className="icon-1.4x p-2" />
         </Link>
         {/* Cart Hamburger */}
         <Link 
             to={currentUser ? "/cart" : "#"} 
             onClick={() => !currentUser && setShowModal(true)}
-            className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150"
+            className="block px-2 py-1 text-black hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500"
           >
             <FontAwesomeIcon icon={faShoppingCart} className="icon-1.4x p-2" />
         </Link>
 
         {/* Login Hamburger */}
         {currentUser ? (
-          <button onClick={logout} className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
+          <button onClick={logout} className="block px-2 py-1 text-black hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
             Logout
           </button>
         ) : (
-          <Link to="/login" className="block px-2 py-1 text-black hover:text-gray-800 transform transition-transform duration-200 hover:scale-150">
+          <Link to="/login" className="block px-2 py-1 text-black hover:text-pink-400 transform transition-transform hover:scale-150 ease-in-out duration-500">
             <div className="border rounded-full p-2">
               <FontAwesomeIcon icon={faUser} /> Login
             </div>

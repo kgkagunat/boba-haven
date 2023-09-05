@@ -69,7 +69,7 @@ function Footer() {
             <Link
               key={item.name}
               to={item.href}
-              className="font-twinkle text-2xl leading-6 text-gray-600 hover:text-pink-400 p-1 -m-2 hover:animate-subtleBounce"
+              className="font-twinkle text-2xl font-bold leading-6 text-gray-600 hover:text-pink-400 p-1 hover:animate-subtleBounce"
             >
               {item.name}
             </Link>
@@ -80,7 +80,7 @@ function Footer() {
             <a
               key={item.name}
               href={item.href}
-              className="text-gray-600 hover:text-pink-400 transform transition-transform duration-300 hover:scale-150"
+              className="text-gray-600 hover:text-pink-400 transform transition-transform duration-700 hover:scale-150"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-8 w-8" aria-hidden="true" />
