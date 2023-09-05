@@ -90,46 +90,28 @@ function CanvasAudioPage() {
     
     function hsvToRgb(h, s, v) {
         let r, g, b;
-        let i = Math.floor(h * 7);
-        let f = h * 6 - i;
+        let i = Math.floor(h * 4);
+        let f = h * 4 - i; 
         let p = v * (1 - s);
         let q = v * (1 - f * s);
         let t = v * (1 - (1 - f) * s);
-    
-        switch (i % 6) {
-            case 0: 
-                r = v; 
-                g = t; 
-                b = p; 
+
+        switch (i) {
+            case 0:
+                [r, g, b] = [255, Math.round(t * 255), Math.round(p * 255)];
                 break;
-            case 1: 
-                r = q; 
-                g = v; 
-                b = p; 
+            case 1:
+                [r, g, b] = [Math.round(p * 255), Math.round(v * 255), Math.round(t * 255)];
                 break;
-            case 2: 
-                r = p; 
-                g = v; 
-                b = t; 
+            case 2:
+                [r, g, b] = [Math.round(p * 255), Math.round(q * 255), 255];
                 break;
-            case 3: 
-                r = p; 
-                g = q; 
-                b = v; 
-                break;
-            case 4: 
-                r = t; 
-                g = p; 
-                b = v; 
-                break;
-            case 5: 
-                r = v; 
-                g = p; 
-                b = q; 
+            case 3:
+                [r, g, b] = [255, 255, 255];
                 break;
         }
-    
-        return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+
+        return [r, g, b];
     }
     
     function animate() {
