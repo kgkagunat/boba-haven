@@ -128,3 +128,30 @@ export const PROCESS_PAYMENT = gql`
     }
   }
 `;
+
+
+export const LOG_ORDER_TO_USER_HISTORY = gql`
+mutation LogOrderToUserHistory($userId: ID!, $orderId: ID!) {
+  logOrderToUserHistory(userId: $userId, orderId: $orderId) {
+    _id
+    email
+    name
+    orders {
+      _id
+      drinks {
+        drink {
+          name
+          prices {
+            small
+            medium
+            large
+          }
+        }
+        quantity
+        size
+        priceAtOrderTime
+      }
+    }
+  }
+}
+`;
