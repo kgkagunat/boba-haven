@@ -1,0 +1,71 @@
+# **Boba Haven**
+
+## **Acceptance Criteria**
+
+    When the page loads
+    Then user will see a homepage displaying all the drinks
+    When the user signs up
+    Then there will be a profile page for them also giving them access to order drinks
+    When one of the drinks are chosen
+    Then the drink page will be displayed giving the user 3 sizes to choose from
+    When the user chooses a size before adding to cart
+    Then it adds the drink to the shopping cart
+    When the user clicks on the shopping cart
+    Then all the drinks are displayed 
+    When the final checkout button is clicked
+    Then the user is promted to put in credit card information
+    When the form is filled out 
+    Then the user will be notifed their purchase was accepted
+
+## **Description**
+
+    
+
+
+## **Getting Started**
+
+
+### Dependencies
+
+* MacOS
+* Windows 10
+
+### Installing
+
+[Repository](https://github.com/kgkagunat/boba-haven)
+
+### Executing program
+
+[Heroku Link]()
+
+## Author(s)
+
+* Jose Seto
+* Jon Amaya
+* Kamauliola Agunat
+* Rebecca Fregoso
+* Karina Valencia
+
+## Version History
+
+* 0.1
+    * Initial Release
+
+## License  
+
+ ![badge](https://img.shields.io/badge/MIT-blue)
+
+This project is licensed under the MIT License - see the LICENSE.md file for details 
+
+## Acknowledgments
+
+* Dependencies
+    * [Express](https://www.npmjs.com/package/express?activeTab=readme)
+
+
+## Deployed Program
+
+![]()
+
+
+![]()
