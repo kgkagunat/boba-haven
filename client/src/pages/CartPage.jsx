@@ -5,8 +5,16 @@ import { useMutation, useQuery } from '@apollo/client';
 import { REMOVE_DRINK_FROM_ORDER, UPDATE_DRINK_QUANTITY_IN_ORDER, UPDATE_DRINK_SIZE_IN_ORDER } from '../graphQL/mutations';
 import { GET_ME } from '../graphQL/queries';
 
+// Stripe
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "../components/CheckoutForm"; // You will create this component later.
+
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
 
   // Initialize state
   const initialState = {
@@ -21,6 +29,10 @@ function Cart() {
   const [removeDrink] = useMutation(REMOVE_DRINK_FROM_ORDER);
   const [updateDrinkQuantity] = useMutation(UPDATE_DRINK_QUANTITY_IN_ORDER);
   const [updateDrinkSize] = useMutation(UPDATE_DRINK_SIZE_IN_ORDER);
+
+  const handleCloseModal = () => {
+    setShowCheckoutModal(false);
+};
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart'));
@@ -45,7 +57,7 @@ function Cart() {
     }
   };
 
-  const handleDrinkQuantityChange = async (drinkId, event) => {
+  const handleDrinkQuantityChange = async (drinkId, orderId, event) => {
     const newQuantity = parseInt(event.target.value);
 
     // Update UI and local storage first
@@ -63,10 +75,10 @@ function Cart() {
     localStorage.setItem('cart', JSON.stringify(updatedCartItems));
 
     // Then update in the backend
-    changeDrinkQuantity(drinkId, newQuantity);
+    changeDrinkQuantity(drinkId, orderId, newQuantity);
   };
 
-  const changeDrinkQuantity = async (drinkId, newQuantity) => {
+  const changeDrinkQuantity = async (drinkId, orderId, newQuantity) => {
     const updatedCart = cartItems.map(item => {
       if (item.id === drinkId) {
         return { ...item, quantity: newQuantity };
@@ -80,8 +92,8 @@ function Cart() {
     try {
       await updateDrinkQuantity({
         variables: {
-          updateDrinkQuantityInOrderOrderId: state.currentOrderId,
-          updateDrinkQuantityInOrderDrinkId: state.drinkId,
+          updateDrinkQuantityInOrderOrderId: orderId,
+          updateDrinkQuantityInOrderDrinkId: drinkId,
           newQuantity
         }
       });
@@ -90,16 +102,16 @@ function Cart() {
     }
   };
 
-  const handleDrinkSizeChange = async (drinkId, event) => {
+  const handleDrinkSizeChange = async (drinkId, orderId, event) => {
     const newSize = event.target.value;
-    changeDrinkSize(drinkId, newSize);
+    changeDrinkSize(drinkId, orderId, newSize);
   };
 
-  const changeDrinkSize = async (drinkId, newSize) => {
+  const changeDrinkSize = async (drinkId, orderId, newSize) => {
     try {
       await updateDrinkSize({
         variables: {
-          updateDrinkSizeInOrderOrderId: 'YOUR_ORDER_ID',
+          updateDrinkSizeInOrderOrderId: orderId,
           updateDrinkSizeInOrderDrinkId: drinkId,
           newSize
         }
@@ -174,28 +186,33 @@ function Cart() {
               <p className="mt-1 font-gamja text-xl text-gray-500">Shipping and taxes will be calculated at checkout.</p>
             </div>
 
-            <div className="mt-10">
-              <Link to="/checkout">
-                <button
-                  type="button"
-                  className="font-gamja text-2xl w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                >
-                  Checkout
-                </button>
-              </Link>
-            </div>
-
             <div className="font-gamja text-xl mt-6 text-center">
-              <p>or</p>
-              <div className="hover:underline">
+            <div className="hover:underline">
                 <Link to="/" className="font-gamja text-2xl mt-5 text-indigo-600 hover:text-indigo-500">
                   Continue order / back to drinks
                   <span aria-hidden="true"> &rarr;</span>
                 </Link>
               </div>
+
+              <p className='m-4'>or</p>
+
+              <button onClick={() => setShowCheckoutModal(true)} type='button' className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-full">
+                Checkout
+              </button>
+              
             </div>
           </section>
         </form>
+        {showCheckoutModal && (
+        <div className="modal-background">
+          <div className="modal-content">
+            <button onClick={() => setShowCheckoutModal(false)}>Close</button>
+            <Elements stripe={stripePromise}>
+                <CheckoutForm totalAmount={subtotal} cartItems={cartItems} onClose={handleCloseModal} />
+            </Elements>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );
