@@ -19,23 +19,7 @@ function ProfilePage() {
     _id: '',
     name: '',
     email: '',
-    orders: [{
-      _id: '',
-      purchaseDate: '',
-      drinks: [{
-        drink: {
-          _id: '',
-          name: '',
-          image: ''
-        },
-        quantity: 0,
-        size: '',
-        priceAtOrderTime: 0
-      }]
-    }],
   });
-
-  // console.log(user);
 
   useEffect(() => {
     if (data && data.me) {
@@ -58,7 +42,6 @@ function ProfilePage() {
   };
   
   const userNavigation = [
-    { name: 'Order History', href: '/404' },
     { name: 'Back to main menu', href: '/' }, // Replace with actual main menu route
     { name: 'Sign out' },
   ];
@@ -199,6 +182,9 @@ function ProfilePage() {
                       <dd className="font-gamja text-2xl mt-1 leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user && user.email}</dd>
                     </div>
 
+                    <div className="mt-6 border-t border-gray-100">
+                    
+                    </div>
                   </dl>
                 </div>
               </div>

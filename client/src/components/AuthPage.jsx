@@ -34,14 +34,11 @@ function AuthPage({ pageTitle, buttonText, bgColorGradient, redirectLink, bottom
 
         // Fetch and store cart items here
         const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-        console.log('Cart Items:', cartItems); // Add this log
         const { data: orderData } = await addOrder({ variables: { drinks: cartItems } });
 
         // Handle the response and navigation accordingly
-        console.log('Order Data:', orderData); // Add this log
         if (orderData && orderData.addOrder) {
           localStorage.removeItem('cart');
-          console.log('Cart cleared.'); // Add this log
           navigate('/profile');
         } else {
           setError('Error adding order');

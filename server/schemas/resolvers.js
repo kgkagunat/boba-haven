@@ -1,6 +1,10 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { Drink, Orders, User } = require('../models');
+const { Drink, Orders, User, Payment } = require('../models');
 const { signToken } = require('../utils/auth');
+const { ApolloError } = require('apollo-server-express');
+
+// Stripe
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const imageBaseUrl = '/images/Drinks_pics';
 
@@ -40,6 +44,12 @@ const resolvers = {
         order: async (parent, { _id }) => {
             return await Orders.findOne({ _id }).populate('drinks.drink');
         },
+        payments: async () => {
+            return await Payment.find({}).populate('user');
+        },
+        payment: async (parent, { paymentId }) => {
+            return await Payment.findById(paymentId).populate('user');
+        }
     },
     Mutation: {
         addUser: async (parent, { name, email, password }) => {
@@ -162,6 +172,110 @@ const resolvers = {
                 }, 
                 { new: true, runValidators: true }).populate('drinks.drink');
             return order;
+        },
+        checkout: async (parent, { drinks }, context) => {
+            const url = new URL(context.headers.referer).origin;
+
+            if (!context.user) {
+              throw new AuthenticationError('Not logged in');
+            }
+          
+            // Fetch the order's drinks from the database
+            const order = await Orders.findOne({ user: context.user._id }).populate('drinks.drink');
+          
+            // Construct line items for the Stripe session based on the drinks in the order
+            const line_items = order.drinks.map(orderDrink => {
+              return {
+                price_data: {
+                  currency: 'usd',
+                  product_data: {
+                    name: orderDrink.drink.name,
+                  },
+                  unit_amount: orderDrink.drink.prices[orderDrink.size] * 100, // Stripe expects the price in cents
+                },
+                quantity: orderDrink.quantity,
+              };
+            });
+          
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items,
+                mode: 'payment',
+                success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+                cancel_url: `${url}/`,
+              });
+          
+            return { session: session.id };
+          },
+          processStripePayment: async (_, { paymentMethodId, amount }, context) => {
+            if (!context.user) {
+              throw new AuthenticationError('Not logged in');
+            }
+      
+            try {
+              // Convert amount to cents (Stripe uses cents)
+              const amountInCents = Math.round(amount * 100);
+      
+              // Create a PaymentIntent to charge the user
+              const payment = await stripe.paymentIntents.create({
+                amount: amountInCents,
+                currency: 'usd',
+                payment_method: paymentMethodId,
+                confirm: true, // This automatically confirms the payment
+                automatic_payment_methods: {
+                    enabled: true,
+                    allow_redirects: 'never'
+                }
+              });
+      
+              if (payment.status === 'succeeded') {
+                // Store the payment info in your database
+                await Payment.create({
+                    user: context.user._id,
+                    paymentMethodId: paymentMethodId,
+                    amount: amount,
+                    status: 'succeeded'
+                });
+                
+                return {
+                    success: true,
+                    message: 'Payment processed successfully!'
+                };
+              } else {
+                return {
+                  success: false,
+                  message: 'Payment failed.'
+                };
+              }
+      
+            } catch (error) {
+              throw new ApolloError(`Failed to process payment: ${error.message}`);
+            }
+        },
+        logOrderToUserHistory: async (_, { userId, orderId }) => {
+            const order = await Orders.findById(orderId); // Fetch the order
+
+            // Check if drinks exist and set a default name if missing
+            if (!order) {
+                throw new Error('Order not found.');
+            }
+            if (order.drinks) {
+                order.drinks.forEach(drink => {
+                    if (!drink.name) drink.name = "Unknown Drink";
+                });
+            } else {
+                throw new Error('No drinks found in the order.');
+            }
+
+            // Fetch the user and set the order
+            const user = await User.findById(userId);
+            if (!user) {
+                throw new Error('User not found.');
+            }
+            user.orders.push(order);
+            await user.save();
+
+            return user;  // return the updated user
         }
     }
 };

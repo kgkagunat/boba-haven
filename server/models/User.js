@@ -29,6 +29,12 @@ const userSchema = new Schema({
             ref: 'Orders',
         },
     ],
+    payments: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Payment'
+        }
+      ]
 
 })
 

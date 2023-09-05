@@ -41,12 +41,32 @@ type Auth {
   user: User
 }
 
+type Checkout {
+  session: ID
+}
+
+type PaymentResponse {
+  success: Boolean!
+  message: String!
+}
+
+type Payment {
+  _id: ID!
+  user: ID!
+  paymentMethodId: String!
+  amount: Float!
+  status: String!
+  createdAt: String!
+}
+
 type Query {
   drinks: [Drink]
   drink(drinkId: ID!): Drink
   user(userId: ID!): User
   order(_id: ID!): Order
   me: User
+  payments: [Payment]
+  payment(paymentId: ID!): Payment
 }
 
 type Mutation {
@@ -57,6 +77,9 @@ type Mutation {
   updateDrinkSizeInOrder(orderId: ID!, drinkId: ID!, newSize: String!): Order
   updateDrinkQuantityInOrder(orderId: ID!, drinkId: ID!, newQuantity: Int!): Order
   removeDrinkFromOrder(orderId: ID!, drinkId: ID!): Order
+  checkout(drinks: [OrderInputDrink!]!): Checkout
+  processStripePayment(paymentMethodId: String!, amount: Float!): PaymentResponse!
+  logOrderToUserHistory(userId: ID!, orderId: ID!): User
 }
 
 input OrderInputDrink {

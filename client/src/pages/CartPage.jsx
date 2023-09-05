@@ -5,8 +5,16 @@ import { useMutation, useQuery } from '@apollo/client';
 import { REMOVE_DRINK_FROM_ORDER, UPDATE_DRINK_QUANTITY_IN_ORDER, UPDATE_DRINK_SIZE_IN_ORDER } from '../graphQL/mutations';
 import { GET_ME } from '../graphQL/queries';
 
+// Stripe
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "../components/CheckoutForm"; // You will create this component later.
+
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
 
   // Initialize state
   const initialState = {
@@ -21,6 +29,10 @@ function Cart() {
   const [removeDrink] = useMutation(REMOVE_DRINK_FROM_ORDER);
   const [updateDrinkQuantity] = useMutation(UPDATE_DRINK_QUANTITY_IN_ORDER);
   const [updateDrinkSize] = useMutation(UPDATE_DRINK_SIZE_IN_ORDER);
+
+  const handleCloseModal = () => {
+    setShowCheckoutModal(false);
+};
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart'));
@@ -42,73 +54,6 @@ function Cart() {
       });
     } catch (error) {
       console.error("Failed to remove drink from order:", error);
-    }
-  };
-
-  const handleDrinkQuantityChange = async (drinkId, event) => {
-    const newQuantity = parseInt(event.target.value);
-
-    console.log("Drink ID:", drinkId);
-    console.log("New Quantity:", newQuantity);
-
-    // Update UI and local storage first
-    const updatedCartItems = cartItems.map(item => {
-      if (item.id === drinkId) {
-        return {
-          ...item,
-          quantity: newQuantity,
-        };
-      }
-      return item;
-    });
-
-    setCartItems(updatedCartItems);
-    localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-
-    // Then update in the backend
-    changeDrinkQuantity(drinkId, newQuantity);
-  };
-
-  const changeDrinkQuantity = async (drinkId, newQuantity) => {
-    const updatedCart = cartItems.map(item => {
-      if (item.id === drinkId) {
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    });
-  
-    setCartItems(updatedCart);
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-  
-    try {
-      await updateDrinkQuantity({
-        variables: {
-          updateDrinkQuantityInOrderOrderId: state.currentOrderId,
-          updateDrinkQuantityInOrderDrinkId: state.drinkId,
-          newQuantity
-        }
-      });
-    } catch (error) {
-      console.error("Failed to update drink quantity:", error);
-    }
-  };
-
-  const handleDrinkSizeChange = async (drinkId, event) => {
-    const newSize = event.target.value;
-    changeDrinkSize(drinkId, newSize);
-  };
-
-  const changeDrinkSize = async (drinkId, newSize) => {
-    try {
-      await updateDrinkSize({
-        variables: {
-          updateDrinkSizeInOrderOrderId: 'YOUR_ORDER_ID',
-          updateDrinkSizeInOrderDrinkId: drinkId,
-          newSize
-        }
-      });
-    } catch (error) {
-      console.error("Failed to update drink size:", error);
     }
   };
 
@@ -177,28 +122,33 @@ function Cart() {
               <p className="mt-1 font-gamja text-xl text-gray-500">Shipping and taxes will be calculated at checkout.</p>
             </div>
 
-            <div className="mt-10">
-              <Link to="/checkout">
-                <button
-                  type="button"
-                  className="font-gamja text-2xl w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                >
-                  Checkout
-                </button>
-              </Link>
-            </div>
-
             <div className="font-gamja text-xl mt-6 text-center">
-              <p>or</p>
-              <div className="hover:underline">
+            <div className="hover:underline">
                 <Link to="/" className="font-gamja text-2xl mt-5 text-indigo-600 hover:text-indigo-500">
                   Continue order / back to drinks
                   <span aria-hidden="true"> &rarr;</span>
                 </Link>
               </div>
+
+              <p className='m-4'>or</p>
+
+              <button onClick={() => setShowCheckoutModal(true)} type='button' className="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-full">
+                Checkout
+              </button>
+              
             </div>
           </section>
         </form>
+        {showCheckoutModal && (
+        <div className="modal-background">
+          <div className="modal-content">
+            <button onClick={() => setShowCheckoutModal(false)}>Close</button>
+            <Elements stripe={stripePromise}>
+                <CheckoutForm totalAmount={subtotal} cartItems={cartItems} onClose={handleCloseModal} />
+            </Elements>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );
