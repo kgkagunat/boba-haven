@@ -44,6 +44,14 @@ Email: `test123@gmail.com`
 
 Password: `password01`
 
+# IMPORTANT STRIPE INFO:
+
+- DO NOT USE YOUR ACTUAL CREDIT CARD INFO
+  
+- For the card number please enter: 4242 4242 4242 4242
+
+- As for the "Card Date", "CVC", and "Zip Code", you can enter any random number. (note: for the "card date" enter a year that is higher than the current year)
+
 ## Links 🔗
 Heroku app: https://bobahavenfinal-8d2e89fa244b.herokuapp.com/
 
